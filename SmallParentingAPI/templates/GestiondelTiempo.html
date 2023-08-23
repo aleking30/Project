@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion del tiempo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_GDT.css' %}">
+</head>
+<body>
+    <form id="formulario" method="POST" action="">
+        <h1>GESTION DEL TIEMPO</h1>
+        <div class="container" id="datos_horario">
+            <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
+            <select id="perfil_hijo" name="perfil_hijo">
+                <option value="">Ningún perfil de hijo creado</option>
+                {% for hijo in hijos %}
+                    <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+                {% endfor %}
+            </select>
+            <h2>Datos del Trabajo</h2>
+            <div class="form-group additional-fields" id="p1">
+                <label for="p1">¿Cuántos días de la semana trabajas?</label>
+                <input type="number" id="p1" name="p1" min="1" max="7" required>
+            </div>
+
+            <div id="p2">
+                <label for="p2">Horario entrada</label>
+                <input type="time" id="p2" name="p2" required>
+            </div>
+
+            <div id="p3">
+                <label for="p3">horario salida</label>
+                <input type="time" id="p3" name="p3" required>
+            </div>
+
+            <div id="p4">
+            <h2>Datos del Hijo/a</h2>
+                <label for="p4">Días de estudio del hijo/a</label>
+                <input type="number" id="p4" name="p4" min="1" max="7" required>
+            </div>
+
+            <div id="p5">
+                <label for="p5">Horario entrada</label>
+                <input type="time" id="p5" name="p5" required>
+            </div>
+
+            <div id="p6">
+                <label for="p6">horario salida</label>
+                <input type="time" id="p6" name="p6" required>
+            </div>
+        </div>
+
+        <div class="container" id="preguntas">
+            <h2>Preguntas</h2>
+            <div id="p7">
+                <label for="p7">1. ¿Qué tan organizado/a te consideras en la distribución del tiempo para las actividades diarias con tu hijo?</label>
+                <select id="p7" name="p7" required>
+                    <option value="">Selecciona una opción</option>
+                    <option id="p7" name="p7" value="Muy organizado/a, siempre tengo un plan establecido">Muy organizado/a, siempre tengo un plan establecido.</option>
+                    <option id="p7" name="p7" value="Algunas veces soy organizado/a, pero podría mejorar">Algunas veces soy organizado/a, pero podría mejorar.</option>
+                    <option id="p7" name="p7" value="No soy muy organizado/a, a menudo las cosas se vuelven caóticas">No soy muy organizado/a, a menudo las cosas se vuelven caóticas.</option>
+                    <option id="p7" name="p7" value="No tengo ningún tipo de planificación">No tengo ningún tipo de planificación.</option>
+                </select>
+            </div>
+
+            <div id="p8">
+                <label for="p8">2. ¿Cuáles son los principales desafíos que enfrentas al tratar de administrar tu tiempo junto a tu hijo?</label>
+                <div class="alternativas">
+                    <input type="checkbox" id="alt10" value="Falta de tiempo para actividades familiares"> <label for="alt10">Falta de tiempo para actividades familiares</label><br>
+                    <input type="checkbox" id="alt11" value="Dificultad para equilibrar el trabajo y la vida familiar"> <label for="alt11">Dificultad para equilibrar el trabajo y la vida familiar</label><br>
+                    <input type="checkbox" id="alt12" value="Desafíos para establecer rutinas y horarios adecuados"> <label for="alt12">Desafíos para establecer rutinas y horarios adecuados</label><br>
+                </div>
+                <textarea id="p8-textarea" name="p8" rows="4" required></textarea>
+            </div>            
+
+            <div id="p9">
+                <label for="p9">3. ¿Has intentado alguna estrategia o método para mejorar la gestión del tiempo con tu hijo?</label>
+                <div class="alternativas">
+                    <input type="checkbox" id="alt13" value="Establecer horarios y rutinas"> <label for="alt13">Establecer horarios y rutinas</label><br>
+                    <input type="checkbox" id="alt14" value="Utilizar un calendario o agenda compartida"> <label for="alt14">Utilizar un calendario o agenda compartida</label><br>
+                    <input type="checkbox" id="alt15" value="Delegar tareas y responsabilidades"> <label for="alt15">Delegar tareas y responsabilidades</label><br>
+                </div>
+                <input type="text" id="p9-input" name="p9" required>
+            </div>            
+
+            <div id="p10">
+                <label for="p10">4. ¿Qué tipo de actividades consideras más importantes y prioritarias en el tiempo que pasas con tu hijo?</label>
+                <div class="alternativas">
+                    <input type="checkbox" id="alt16" value="Jugar y divertirse juntos"> <label for="alt16">Jugar y divertirse juntos</label><br>
+                    <input type="checkbox" id="alt17" value="Tener conversaciones y compartir experiencias"> <label for="alt17">Tener conversaciones y compartir experiencias</label><br>
+                    <input type="checkbox" id="alt18" value="Realizar actividades educativas y de aprendizaje"> <label for="alt18">Realizar actividades educativas y de aprendizaje</label><br>
+                </div>
+                <input type="text" id="p10-input" name="p10" required>
+            </div>            
+
+            <div id="p11">
+                <label for="p11">5. ¿Qué cambios estarías dispuesto/a a hacer para mejorar la gestión del tiempo con tu hijo?</label>
+                <div class="alternativas">
+                    <input type="checkbox" id="alt19" value="Establecer límites claros en el uso de la tecnología"> <label for="alt19">Establecer límites claros en el uso de la tecnología</label><br>
+                    <input type="checkbox" id="alt20" value="Priorizar y planificar actividades familiares"> <label for="alt20">Priorizar y planificar actividades familiares</label><br>
+                    <input type="checkbox" id="alt21" value="Mejorar la comunicación y el tiempo de calidad"> <label for="alt21">Mejorar la comunicación y el tiempo de calidad</label><br>
+                </div>
+                <input type="text" id="p11-input" name="p11" required>
+            </div>            
+        </div>
+        <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
+        <div class="buttons-container">
+            <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+            <form id="myform" onsubmit="submitForm();">
+                {% csrf_token %}
+                <input type="hidden" name="hiddenMessage" id="hiddenMessage">
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </form>
+    <div id="loading-overlay">
+        <div id="loading-indicator"></div>
+        <div id="loading-message">Enviando datos, espere un momento...</div>
+    </div>
+    <script>
+        function showLoadingOverlay() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        // Función para ocultar el overlay de carga
+        function hideLoadingOverlay() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Agregar el evento 'submit' al formulario y mostrar el overlay cuando se envíe
+        document.getElementById('formulario').addEventListener('submit', function() {
+            showLoadingOverlay();
+        });
+        function submitForm() {
+            // Obtener el mensaje del formulario
+            var message = document.getElementById('message').value;
+
+            // Construir el objeto de mensaje
+            var chatMessage = {
+                role: 'user',
+                content: message
+            };
+
+            // Convertir el objeto de mensaje en una cadena JSON
+            var chatMessageJSON = JSON.stringify(chatMessage);
+
+            // Guardar el mensaje en el almacenamiento local
+            localStorage.setItem('chatMessage', chatMessageJSON);
+            }
+
+        const textareaP8 = document.getElementById('p8-textarea');
+        const checkboxesP8 = document.querySelectorAll('#p8 .alternativas input[type="checkbox"]');
+
+        // Escuchar los eventos de cambio en las checkboxes
+        checkboxesP8.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    textareaP8.value += checkbox.value + '\n';
+                } else {
+                    textareaP8.value = textareaP8.value.replace(checkbox.value + '\n', '');
+                }
+            });
+        });
+
+        const inputP9 = document.getElementById('p9-input');
+        const checkboxesP9 = document.querySelectorAll('#p9 .alternativas input[type="checkbox"]');
+
+        // Escuchar los eventos de cambio en las checkboxes
+        checkboxesP9.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    inputP9.value += checkbox.value + ', ';
+                } else {
+                    inputP9.value = inputP9.value.replace(checkbox.value + ', ', '');
+                }
+            });
+        });
+
+        const inputP10 = document.getElementById('p10-input');
+        const checkboxesP10 = document.querySelectorAll('#p10 .alternativas input[type="checkbox"]');
+
+        // Escuchar los eventos de cambio en las checkboxes
+        checkboxesP10.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    inputP10.value += checkbox.value + ', ';
+                } else {
+                    inputP10.value = inputP10.value.replace(checkbox.value + ', ', '');
+                }
+            });
+        });
+
+        const inputP11 = document.getElementById('p11-input');
+        const checkboxesP11 = document.querySelectorAll('#p11 .alternativas input[type="checkbox"]');
+
+        // Escuchar los eventos de cambio en las checkboxes
+        checkboxesP11.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    inputP11.value += checkbox.value + ', ';
+                } else {
+                    inputP11.value = inputP11.value.replace(checkbox.value + ', ', '');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

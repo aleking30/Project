@@ -1,0 +1,90 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Chat */
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#chat-history {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    height: calc(100% - 70px); /* Ajusta la altura según tus preferencias */
+    width: 95%; /* Ajusta el ancho según tus preferencias */
+    overflow-y: auto; /* Agrega desplazamiento vertical si el contenido excede la altura */
+    background-color: #f9f9f9;
+}
+
+.message {
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+}
+
+.assistant {
+    align-self: flex-start;
+    background-color: #ffffff;
+}
+
+/* Formulario */
+#chat-form {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#chat-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+}
+
+#chat-form button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    margin-left: 10px;
+}
+
+/* Enlace */
+#back-link {
+    background-color: transparent;
+    color: #4caf50;
+    border: none;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}

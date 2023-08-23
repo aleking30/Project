@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        pre {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        button{
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        button:hover{
+            background-color: #45a049;
+        }
+
+        /* Estilos para dispositivos móviles (hasta 768px) */
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <h1>API Response</h1>
+    <pre>{{ response }}</pre>
+    <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+    <button id="download-pdf">Descargar PDF</button>
+
+    <script>
+        // Agregar el evento click al botón para generar y descargar el PDF
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            const element = document.querySelector('pre');
+            const options = {
+                margin: 10,
+                filename: 'api_response.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generar el PDF a partir del elemento "pre"
+            html2pdf().from(element).set(options).save();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+

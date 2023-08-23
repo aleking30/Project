@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historial de Respuestas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #5FF974;
+            color: black;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #4AC966;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Seleccione un perfil de hijo para ver su historial:</h1>
+    <ul>
+        {% for hijo in hijos %}
+            <!-- ver_historial.html -->
+            <li><a href="{% url 'ver_historial_perfil' hijo.id %}">{{ hijo.nombre }}</a></li>
+
+        {% endfor %}
+    </ul>
+    <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+</body>
+</html>

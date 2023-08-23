@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Página de Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/inicio.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}">
+    <script>
+        // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
+        function habilitarCampoTexto(elemento) {
+            var textField = document.getElementById(elemento.id + "-text");
+            textField.disabled = (elemento.value !== "Otro" && elemento.value !== "Sí");
+        }
+    </script>
+</head>
+<body>
+    <div class="contenedor">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto">
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'agregar_hijo' %}">Agregar Hijo</a>
+                        </li>
+                        {% endif %}
+                
+                        {% if not request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/registro/">Registrarse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="mostrarPopup()">Iniciar sesión</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <span class="nav-link">Bienvenido, {{ request.user.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <div class="hijos-select-container">
+                            <span>Perfiles:</span>
+                            <select class="form-control" id="hijos-select" name="hijo_seleccionado" onchange="selectHijoPerfil()">
+                                {% for hijo in hijos %}
+                                <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'historial_respuestas' %}">HISTORIAL</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{% url 'cerrar_sesion' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div id="popup" class="popup">
+                        <div class="popup-content">
+                            <span class="cerrar" onclick="cerrarPopup()">&times;</span>
+                            
+                            {% if error_message %}
+                                <p class="error-message">{{ error_message }}</p>
+                            {% endif %}
+                            <h1 id="Inicio_de_cesion">INICIAR SESION</h1>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <label id="user_name" for="username">Nombre de usuario:</label>
+                                <input type="text" id="username" name="username" required>
+                                <label id="password_style" for="password">Contraseña:</label>
+                                <input type="password" id="password" name="password" required>
+                                <button type="submit">Iniciar sesión</button>
+                            </form>
+                            
+                            <a href="#" onclick="cerrarPopup()">Salir</a>
+                        </div>
+                    </div>
+            
+                    <div id="login-required-message" style="display: none;" class="login-required-message">
+                        Atencion! Requiere inicio de sesión para acceder a las opciones.
+                    </div>
+                </div>
+            </div>
+        </nav>          
+        <div class="container">
+            <h1></h1>
+            <div class="options">
+                <div class="option" onclick="showModal('DIFICULTADES DE APRENDIZAJE', 'La educación es un proceso vital en la vida de cualquier individuo, pero para algunos, el camino hacia el aprendizaje puede ser un desafío debido a dificultades de aprendizaje. Las dificultades de aprendizaje son una variedad de trastornos que pueden afectar la capacidad de un estudiante para comprender, procesar o retener información. Estos desafíos pueden manifestarse de diferentes maneras, incluyendo dificultades con la lectura, la escritura, la matemática, la atención y el comportamiento. ')">
+                    <h2>DIFICULTADES DE APRENDIZAJE</h2>
+                </div>
+                <div class="option" onclick="showModal('PRESIÓN ACADÉMICA', 'La presión académica es un problema cada vez más común entre estudiantes de todas las edades, desde primaria hasta la universidad. Muchos estudiantes sienten la necesidad de cumplir con altas expectativas académicas, lo que puede llevar a niveles de estrés y ansiedad insostenibles.')">
+                    <h2>PRESIÓN ACADÉMICA</h2>
+                </div>
+                <div class="option" onclick="showModal('SALUD MENTAL ESTUDIANTIL', 'La salud mental estudiantil es un tema crítico y a menudo subestimado en la educación. Muchos estudiantes enfrentan diversos desafíos que afectan su bienestar emocional y psicológico, incluyendo el estrés, la ansiedad, la depresión y la soledad. Estas dificultades pueden interferir en su capacidad para concentrarse en sus estudios, tener relaciones saludables y alcanzar su potencial académico. ')">
+                    <h2>SALUD MENTAL ESTUDIANTIL</h2>
+                </div>
+                <div class="option" onclick="showModal('FALTA DE COMUNICACIÓN', 'La falta de comunicación puede ser un obstáculo en cualquier relación, pero es especialmente difícil cuando se trata de la relación entre padres e hijos. La falta de comunicación puede resultar en malentendidos, conflictos y una sensación de desconexión. En el contexto escolar, la falta de comunicación puede llevar a problemas académicos y emocionales para los estudiantes.')">
+                    <h2>FALTA DE COMUNICACIÓN</h2>
+                </div>
+                <div class="option" onclick="showModal('PROBLEMAS DE CONDUCTA', 'En el ámbito educativo, es común encontrar estudiantes que enfrentan desafíos relacionados con problemas de conducta. Estos problemas pueden manifestarse de diversas formas, como dificultades para seguir las normas, falta de respeto hacia los demás, actitudes disruptivas en el aula o dificultades para controlar sus emociones.')">
+                    <h2>PROBLEMAS DE CONDUCTA</h2>
+                </div>
+                <div class="option" onclick="showModal('GESTIÓN DEL TIEMPO', 'La gestión del tiempo es un desafío común para muchos estudiantes, especialmente cuando tienen que equilibrar el estudio con otras responsabilidades y actividades. Una mala gestión del tiempo puede impactar negativamente la relación con sus hijos. Causando falta de tiempo de calidad, estrés, falta de atención, desorganización y pérdida de oportunidades. Es fundamental que los padres se esfuercen por equilibrar sus responsabilidades y dedicar tiempo suficiente a sus hijos para fomentar un ambiente familiar saludable y una crianza positiva.')">
+                    <h2>GESTIÓN DEL TIEMPO</h2>
+                </div>
+                <div class="option" onclick="showModal('CONVERSACIÓN PERSONALIZADA', 'Una conversación personalizada es una exelente opcion porque ofrece respuestas específicas y relevantes a las necesidades individuales de cada usuario. Esto aumenta el compromiso y la satisfacción del usuario, mejora la comprensión del usuario y crea una experiencia más valiosa y confiable. Además, resuelve problemas específicos de manera eficiente y fomenta una relación más positiva entre el usuario y el sistema o plataforma. En general, la personalización mejora la experiencia del usuario y fortalece la conexión con el servicio o producto ofrecido.')">
+                    <h2>CONVERSACIÓN PERSONALIZADA</h2>
+                </div>
+            </div>
+        </div>
+
+        <dialog id="modal">
+            <button id="btn-cerrar-modal" onclick="closeModal()">Cerrar</button>
+            <h2 id="modal-titulo"></h2>
+            <p id="modal-definicion"></p>
+            <a id="btn-abrir-chat" href="#">Ir</a>
+        </dialog>
+    </div>
+    <script>
+        function showModal(titulo, definicion) {
+            const modal = document.getElementById("modal");
+            const modalTitulo = document.getElementById("modal-titulo");
+            const modalDefinicion = document.getElementById("modal-definicion");
+            const btnAbrirChat = document.getElementById("btn-abrir-chat");
+
+            modalTitulo.textContent = titulo;
+            modalDefinicion.textContent = definicion;
+
+            // Actualiza el href dinámicamente según la opción seleccionada
+            if (titulo === "DIFICULTADES DE APRENDIZAJE") {
+                btnAbrirChat.href = "{% url 'dificultadesAprendizaje' %}";
+            } else if(titulo === "PRESIÓN ACADÉMICA"){
+                btnAbrirChat.href = "{% url 'PresionAcademica' %}";
+            } else if(titulo === "SALUD MENTAL ESTUDIANTIL"){
+                btnAbrirChat.href = "{% url 'SaludMentalEstudiantil' %}";
+            }else if(titulo === "FALTA DE COMUNICACIÓN"){
+                btnAbrirChat.href = "{% url 'FaltaComunicacion' %}";
+            }else if(titulo === "PROBLEMAS DE CONDUCTA"){
+                btnAbrirChat.href = "{% url 'ProblemasConducta' %}"; 
+            }else if(titulo === "GESTIÓN DEL TIEMPO"){
+                btnAbrirChat.href = "{% url 'GestiondelTiempo' %}"; 
+            }else if(titulo === "CONVERSACIÓN PERSONALIZADA"){
+                btnAbrirChat.href = "{% url 'ConversacionPersonalizada' %}"; 
+            }else{
+                btnAbrirChat.href = `/chat/?opcion=${encodeURIComponent(titulo)}&definicion=${encodeURIComponent(definicion)}`;
+            }
+            // Verificar si el usuario ha iniciado sesión
+            {% if not request.user.is_authenticated %}
+            // Si el usuario no ha iniciado sesión, mostrar el mensaje emergente
+            var loginRequiredMessage = document.getElementById("login-required-message");
+            loginRequiredMessage.style.display = "block";
+
+            // Ocultar el mensaje después de 3 segundos
+            setTimeout(function() {
+                loginRequiredMessage.style.display = "none";
+            }, 2000);
+            return;
+            {% endif %}
+
+            modal.showModal();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("modal");
+            modal.close();
+        }
+        function mostrarPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function cerrarPopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problemas de conducta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_PDC.css' %}">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Problemas de Conducta</h1>
+        <div class="row">
+            <div class="item" onclick="seleccionarItem('bullying')">Bullying</div>
+            <div class="item" onclick="seleccionarItem('desafio')">Desafío de Autoridad</div>
+        </div>
+        <div class="row">
+            <div class="item" onclick="seleccionarItem('conducta')">Conducta Disruptiva</div>
+            <div class="item" onclick="seleccionarItem('social')">Problemas de Conducta Social</div>
+        </div>
+    </div>
+    <script>
+        function seleccionarItem(item) {
+            console.log("Seleccionaste el item: " + item);
+            // Redirigir a la página correspondiente
+            if (item === 'bullying') {
+                window.location.href = "{% url 'Bullying' %}";
+            } else if (item === 'desafio') {
+                window.location.href = "{% url 'D_Autoridad' %}";
+            } else if (item === 'conducta') {
+                window.location.href = "{% url 'C_Disruptiva' %}";
+            } else if (item === 'social') {
+                window.location.href = "{% url 'P_D_C_SOCIAL' %}";
+            }
+        }
+    </script>
+</body>
+</html>
+

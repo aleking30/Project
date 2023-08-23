@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Desafío de Autoridad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/D_autoridad.css' %}">
+    <script>
+        // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
+        function habilitarCampoTexto(elemento) {
+            var textField = document.getElementById(elemento.id + "-text");
+            textField.disabled = (elemento.value !== "Otro");
+        }
+    </script>
+</head>
+<body>
+    <h1>Desafío de Autoridad</h1>
+    <form id="formulario" method="POST" action="">
+        <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
+        <select id="perfil_hijo" name="perfil_hijo">
+            <option value="">Ningún perfil de hijo creado</option>
+            {% for hijo in hijos %}
+                <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+            {% endfor %}
+        </select>
+        <div class="form-group additional-fields" id="p1">
+            <label for="p1">¿Con qué frecuencia tu hijo/a desafía la autoridad?</label>
+            <select id="p1" name="p1">
+                <option id="p1" name="p1" value="">Seleccionar</option>
+                <option id="p1" name="p1" value="rara_vez">Opción 1: Rara vez</option>
+                <option id="p1" name="p1" value="ocasionalmente">Opción 2: Ocasionalmente</option>
+                <option id="p1" name="p1" value="con_frecuencia">Opción 3: Con frecuencia</option>
+                <option id="p1" name="p1" value="constantemente">Opción 4: Constantemente</option>
+            </select>
+        </div>
+        <div id="p2">
+            <label for="p2">¿Cuáles son los comportamientos de desafío de autoridad que tu hijo/a muestra?</label>
+            <select id="p2" name="p2" onchange="habilitarCampoTexto(this)">
+                <option id="p2" name="p2" value="">Seleccionar</option>
+                <option id="p2" name="p2" value="ignorar_instrucciones">Opción 1: Ignorar las instrucciones</option>
+                <option id="p2" name="p2" value="discutir_debatir">Opción 2: Discutir y debatir con figuras de autoridad</option>
+                <option id="p2" name="p2" value="desobedecer_reglas">Opción 3: Desobedecer las reglas establecidas</option>
+                <option id="p2" name="p2" alue="actitudes_desafiantes">Opción 4: Mostrar actitudes desafiantes o irrespetuosas</option>
+                <option id="p2" name="p2" value="Otro">Opción 5: Otro (especificar)</option>
+            </select>
+            <input type="text" id="p2-text" name="p2" disabled><br>
+        </div>
+        <div id="p3">
+            <label for="p3">¿Has notado algún patrón o situaciones específicas en las que tu hijo/a tiende a desafiar la autoridad?</label>
+            <select id="p3" name="p3">
+                <option id="p3" name="p3" value="">Seleccionar</option>
+                <option id="p3" name="p3" value="en_casa">Opción 1: En casa</option>
+                <option id="p3" name="p3" value="en_escuela">Opción 2: En la escuela</option>
+                <option id="p3" name="p3" value="en_sociales">Opción 3: En situaciones sociales</option>
+                <option id="p3" name="p3" value="todos_entornos">Opción 4: En todos los entornos</option>
+                <option id="p3" name="p3" value="ningun_patron">Opción 5: No hay un patrón claro</option>
+            </select>
+        </div>
+        <div id="p4">
+            <label for="p4">¿Cómo sueles comunicarte con tu hijo/a cuando se enfrenta a situaciones de desafío de autoridad?</label>
+            <select id="p4" name="p4" onchange="habilitarCampoTexto(this)">
+                <option id="p4" name="p4" value="">Seleccionar</option>
+                <option id="p4" name="p4" value="estableciendo_limites">Opción 1: Estableciendo límites claros y firmes</option>
+                <option id="p4" name="p4" value="razonamiento_negociacion">Opción 2: Utilizando el razonamiento y la negociación</option>
+                <option id="p4" name="p4" value="aplicando_consecuencias">Opción 3: Aplicando consecuencias o castigos</option>
+                <option id="p4" name="p4" value="refuerzo_positivo">Opción 4: Utilizando técnicas de refuerzo positivo</option>
+                <option id="p4" name="p4" value="Otro">Opción 5: Otro (especificar)</option>
+            </select>
+            <input type="text" id="p4-text" name="p4" disabled><br>
+        </div>
+        <div id="p5">
+            <label for="p5">¿Has buscado alguna estrategia específica para abordar el desafío de autoridad de tu hijo/a?</label>
+            <select id="p5" name="p5">
+                <option id="p5" name="p5" value="">Seleccionar</option>
+                <option id="p5" name="p5" value="asesoramiento_terapia">Opción 1: Asesoramiento o terapia para la familia</option>
+                <option id="p5" name="p5" value="programas_habilidades">Opción 2: Programas de desarrollo de habilidades sociales y emocionales</option>
+                <option id="p5" name="p5" value="actividades_extracurriculares">Opción 3: Participación en actividades extracurriculares o deportivas</option>
+                <option id="p5" name="p5" value="lectura_libros">Opción 4: Lectura de libros o recursos sobre crianza y disciplina</option>
+                <option id="p5" name="p5" value="ninguna_estrategia">Opción 5: No he buscado ninguna estrategia específica</option>
+            </select>
+        </div>
+        <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
+        <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+        <form id="myform" onsubmit="submitForm();">
+            {% csrf_token %}
+            <input type="hidden" name="hiddenMessage" id="hiddenMessage">
+            <button type="submit">Enviar</button>
+        </form>
+    </form>
+    <div id="loading-overlay">
+        <div id="loading-indicator"></div>
+        <div id="loading-message">Enviando datos, espere un momento...</div>
+    </div>
+    <script>
+        function showLoadingOverlay() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        // Función para ocultar el overlay de carga
+        function hideLoadingOverlay() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Agregar el evento 'submit' al formulario y mostrar el overlay cuando se envíe
+        document.getElementById('formulario').addEventListener('submit', function() {
+            showLoadingOverlay();
+        });
+        function submitForm() {
+            // Obtener el mensaje del formulario
+            var message = document.getElementById('message').value;
+
+            // Construir el objeto de mensaje
+            var chatMessage = {
+                role: 'user',
+                content: message
+            };
+
+            // Convertir el objeto de mensaje en una cadena JSON
+            var chatMessageJSON = JSON.stringify(chatMessage);
+
+            // Guardar el mensaje en el almacenamiento local
+            localStorage.setItem('chatMessage', chatMessageJSON);
+            }
+    </script>
+</body>
+</html>

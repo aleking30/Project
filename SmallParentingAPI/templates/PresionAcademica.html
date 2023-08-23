@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dificultades de Aprendizaje</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_PA.css' %}">
+    <script>
+        // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
+        function habilitarCampoTexto(elemento) {
+            var textField = document.getElementById(elemento.id + "-text");
+            textField.disabled = (elemento.value !== "Otro" && elemento.value !== "Sí, he buscado consejos/apoyo externo");
+        }
+    </script>  
+</head>
+<body>
+    <h1>PRESION ACADEMICA</h1>
+    <!-- Botón para volver a la pantalla de inicio -->
+    <form id="formulario" method="POST" action="">
+        <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
+        <select id="perfil_hijo" name="perfil_hijo">
+            <option value="">Ningún perfil de hijo creado</option>
+            {% for hijo in hijos %}
+                <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+            {% endfor %}
+        </select>
+        <div class="form-group additional-fields" id="p1">
+            <h2>Pregunta 1</h2>
+            <label for="p1">¿Cuál de las siguientes áreas crees que está generando más presión académica en tu hijo?</label><br>
+            <select id="p1" name="p1" onchange="habilitarCampoTexto(this)">
+                <option id="p1" name="p1" value="">Seleccionar</option>
+                <option id="p1" name="p1" value="Exceso de tareas y deberes">Exceso de tareas y deberes</option>
+                <option id="p1" name="p1" value="Altas expectativas académicas">Altas expectativas académicas</option>
+                <option id="p1" name="p1" value="Presión social y comparación con otros estudiantes">Presión social y comparación con otros estudiantes</option>
+                <option id="p1" name="p1" value="Falta de apoyo emocional y recursos educativos">Falta de apoyo emocional y recursos educativos</option>
+                <option id="p1" name="p1" value="Otro">Otro</option>
+            </select>
+            <input type="text" id="p1-text" name="p1" disabled><br>
+        </div>
+
+        <!-- Pregunta 2 (oculta por defecto) -->
+        <div id="p2">
+            <h2>Pregunta 2</h2>
+            <label for="p2">¿Qué estrategia de afrontamiento consideras que ha intentado tu hijo para lidiar con la presión académica?</label><br>
+            <select id="p2" name="p2" onchange="habilitarCampoTexto(this)">
+                <option id="p2" name="p2" value="">Seleccionar</option>
+                <option id="p2" name="p2" value="Evitar o procrastinar las tareas escolares">Evitar o procrastinar las tareas escolares</option>
+                <option id="p2" name="p2" value="Trabajar intensamente sin descansos adecuados">Trabajar intensamente sin descansos adecuados</option>
+                <option id="p2" name="p2" value="Buscar ayuda y apoyo de otros (amigos, familia, profesores)">Buscar ayuda y apoyo de otros (amigos, familia, profesores)</option>
+                <option id="p2" name="p2" value="Expresión de emociones negativas o comportamiento desafiante">Expresión de emociones negativas o comportamiento desafiante</option>
+                <option id="p2" name="p2" value="Otro">Otro</option>
+            </select>
+            <input type="text" id="p2-text" name="p2" disabled><br>
+        </div>
+
+        <!-- Pregunta 3 (oculta por defecto) -->
+        <div id="p3">
+            <h2>Pregunta 3</h2>
+            <label for="p3">¿Cuáles son tus mayores desafíos al enfrentar la presión académica?</label><br>
+            <div class="alternativas">
+                <input type="checkbox" id="alt4" value="Mantener el enfoque y la concentración"> <label for="alt4">Mantener el enfoque y la concentración</label><br>
+                <input type="checkbox" id="alt5" value="Gestionar el tiempo adecuadamente"> <label for="alt5">Gestionar el tiempo adecuadamente</label><br>
+                <input type="checkbox" id="alt6" value="Lidiar con la ansiedad y el estrés"> <label for="alt6">Lidiar con la ansiedad y el estrés</label><br>
+            </div>
+            <textarea id="p3-textarea" name="p3" rows="4" cols="50"></textarea><br>
+        </div>        
+
+        <!-- Pregunta 4 (oculta por defecto) -->
+        <div id="p4">
+            <h2>Pregunta 4</h2>
+            <label for="p4">¿Cómo crees que la presión académica está afectando el bienestar emocional de tu hijo?</label><br>
+            <select id="p4" name="p4" onchange="habilitarCampoTexto(this)">
+                <option id="p4" name="p4" value="">Seleccionar</option>
+                <option id="p4" name="p4" value="Aumento de estrés y ansiedad">Aumento de estrés y ansiedad</option>
+                <option id="p4" name="p4" value="Cambios en el estado de ánimo">Cambios en el estado de ánimo</option>
+                <option id="p4" name="p4" value="Baja autoestima y falta de motivación">Baja autoestima y falta de motivación</option>
+                <option id="p4" name="p4" value="Problemas de sueño y falta de concentración">Problemas de sueño y falta de concentración</option>
+                <option id="p4" name="p4" value="Otro">Otro</option>
+            </select>
+            <input type="text" id="p4-text" name="p4" disabled><br>
+        </div>
+
+        <!-- Pregunta 5 (oculta por defecto) -->
+        <div id="p5">
+            <h2>Pregunta 5</h2>
+            <label for="p5">¿Has utilizado alguna estrategia de apoyo específica?</label><br>
+            <select id="p5" name="p5" onchange="habilitarCampoTexto(this)">
+                <option id="p5" name="p5" value="">Seleccionar</option>
+                <option id="p5" name="p5" value="Sí, he buscado consejos/apoyo externo">Sí, he buscado consejos/apoyo externo</option>
+                <option id="p5" name="p5" value="No, no he buscado apoyo externo hasta ahora">No, no he buscado apoyo externo hasta ahora</option>
+            </select>
+            <input type="text" id="p5-text" name="p5" disabled><br>
+        </div>
+        <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
+        <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+        <form id="myform" onsubmit="submitForm();">
+            {% csrf_token %}
+            <input type="hidden" name="hiddenMessage" id="hiddenMessage">
+            <button type="submit">Enviar</button>
+        </form>
+    </form>
+    <div id="loading-overlay">
+        <div id="loading-indicator"></div>
+        <div id="loading-message">Enviando datos, espere un momento...</div>
+    </div>
+    <script src="{% static 'JS/java.df.js' %}"></script>
+    <script>
+        function showLoadingOverlay() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        // Función para ocultar el overlay de carga
+        function hideLoadingOverlay() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Agregar el evento 'submit' al formulario y mostrar el overlay cuando se envíe
+        document.getElementById('formulario').addEventListener('submit', function() {
+            showLoadingOverlay();
+        });
+        function submitForm() {
+            // Obtener el mensaje del formulario
+            var message = document.getElementById('message').value;
+
+            // Construir el objeto de mensaje
+            var chatMessage = {
+                role: 'user',
+                content: message
+            };
+
+            // Convertir el objeto de mensaje en una cadena JSON
+            var chatMessageJSON = JSON.stringify(chatMessage);
+
+            // Guardar el mensaje en el almacenamiento local
+            localStorage.setItem('chatMessage', chatMessageJSON);
+            }
+        // Capturar los elementos del DOM
+        const textareaP3 = document.getElementById('p3-textarea');
+        const checkboxesP3 = document.querySelectorAll('#p3 .alternativas input[type="checkbox"]');
+
+        // Escuchar los eventos de cambio en las checkboxes
+        checkboxesP3.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    textareaP3.value += checkbox.value + '\n';
+                } else {
+                    textareaP3.value = textareaP3.value.replace(checkbox.value + '\n', '');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

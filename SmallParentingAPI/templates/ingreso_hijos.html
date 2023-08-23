@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ingreso de Datos de Hijos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'CSS/registrostyle.css' %}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+      <div class="form-wrapper">
+        <h2>Ingreso de Datos de Hijos</h2>
+        <form method="POST" action="{% url 'guardar_hijos' %}" id="ingreso-hijos-form">
+          {% csrf_token %}
+          
+          {% for form in hijos_forms %}
+            <!-- Campos del formulario de cada hijo -->
+            {{ form }}
+            <hr>
+          {% endfor %}
+          
+          <input type="hidden" name="num_hijos" value="{{ num_hijos }}">
+          
+          <div class="button-wrapper">
+            <button type="submit" id="guardar-hijos-btn">Guardar Hijos</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        $('#ingreso-hijos-form').on('submit', function(e) {
+          e.preventDefault();
+          // Realizar validación adicional si es necesario
+          $(this).off('submit').submit();
+        });
+      });
+    </script>
+  </body>  
+</html>
+

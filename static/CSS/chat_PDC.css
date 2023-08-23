@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f1f1f1;
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 20px;
+}
+
+.item {
+    width: 350px;
+    height: 350px;
+    margin-bottom: 20px;
+    background-color: #5FF974;
+    border-radius: 8px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #4AC966;
+}
+
+.container .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.container .row .item:not(:last-child) {
+    margin-right: 20px;
+}
+
+/* Estilos para pantallas más pequeñas (hasta 768px) */
+@media screen and (max-width: 768px) {
+    .item {
+        width: 100%; /* Ajusta el ancho al 100% en pantallas más pequeñas */
+        height: 200px; /* Reduce la altura de los elementos para que sean más pequeños */
+        font-size: 16px; /* Reduce el tamaño del texto para que se ajuste mejor */
+    }
+
+    .container .row {
+        flex-wrap: wrap; /* Permite que los elementos de cada fila se ajusten automáticamente en pantallas pequeñas */
+    }
+
+    .container .row .item:not(:last-child) {
+        margin-right: 0; /* Elimina el margen derecho para que los elementos se alineen correctamente */
+    }
+}

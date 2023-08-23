@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario Bullying</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Bullying.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario Bullying</h1>
+        <form id="formulario" method="POST" action="">
+            <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
+            <select id="perfil_hijo" name="perfil_hijo">
+                <option value="">Ningún perfil de hijo creado</option>
+                {% for hijo in hijos %}
+                    <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+                {% endfor %}
+            </select>
+            <div id ="p1">
+                <label for="p1">¿Tu hijo/a es víctima o causante de bullying?</label>
+                <select id="p1" name="p1" onchange="mostrarFormulario(this.value)">
+                    <option value="">Seleccionar</option>
+                    <option id="p1" name="p1" value="victima">Víctima</option>
+                    <option id="p1" name="p1" value="causante">Causante</option>
+                </select>
+            </div>
+            <div id="formulario-victima" style="display: none;">
+                <div id ="p2">
+                    <label for="p2">Descripción del bullying:</label>
+                    <textarea id="p2" name="p2"></textarea>
+                </div>
+                <div id ="p3">
+                    <label for="p3">Detalles de los incidentes:</label>
+                    <textarea id="p3" name="p3"></textarea>
+                </div>
+                <div id ="p4">
+                    <label for="p4">Cuándo y dónde suelen ocurrir estos incidentes:</label>
+                    <textarea id="p4" name="p4"></textarea>
+                </div>
+                <div id ="p5">
+                    <label for="p5">Agresores o testigos de estos incidentes:</label>
+                    <textarea id="p5" name="p5"></textarea>
+                </div>
+                <div id ="p6">
+                    <label for="p6">Reacciones y consecuencias:</label>
+                    <textarea id="p6" name="p6"></textarea>
+                </div>
+            </div>
+            <div id="formulario-causante" style="display: none;">
+                <div id ="p7">
+                    <label for="p7">Detalles sobre el comportamiento de bullying:</label>
+                    <textarea id="p7" name="p7"></textarea>
+                </div>
+                <div id ="p8">
+                    <label for="p8">Circunstancias en las que ocurre el comportamiento:</label>
+                    <textarea id="p8" name="p8"></textarea>
+                </div>
+                <div id ="p9">
+                    <label for="p9">Cambios en actitud o comportamiento:</label>
+                    <textarea id="p9" name="p9"></textarea>
+                </div>
+                <div id ="p10">
+                    <label for="p10">Comunicación y empatía:</label>
+                    <textarea id="p10" name="p10"></textarea>
+                </div>
+                <div id ="p11">
+                    <label for="p11">Consecuencias del comportamiento:</label>
+                    <textarea id="p11" name="p11"></textarea>
+                </div>
+            </div>
+            <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
+            <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+            <form id="myform" onsubmit="submitForm();">
+                {% csrf_token %}
+                <input type="hidden" name="hiddenMessage" id="hiddenMessage">
+                <button type="submit">Enviar</button>
+            </form>
+        </form>
+    </div>
+    <div id="loading-overlay">
+        <div id="loading-indicator"></div>
+        <div id="loading-message">Enviando datos, espere un momento...</div>
+    </div>
+    <script>
+        function showLoadingOverlay() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        // Función para ocultar el overlay de carga
+        function hideLoadingOverlay() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Agregar el evento 'submit' al formulario y mostrar el overlay cuando se envíe
+        document.getElementById('formulario').addEventListener('submit', function() {
+            showLoadingOverlay();
+        });
+        function mostrarFormulario(rol) {
+            const formularioVictima = document.getElementById('formulario-victima');
+            const formularioCausante = document.getElementById('formulario-causante');
+            
+            if (rol === 'victima') {
+                formularioVictima.style.display = 'block';
+                formularioCausante.style.display = 'none';
+            } else if (rol === 'causante') {
+                formularioVictima.style.display = 'none';
+                formularioCausante.style.display = 'block';
+            } else {
+                formularioVictima.style.display = 'none';
+                formularioCausante.style.display = 'none';
+            }
+        }
+        function submitForm() {
+            // Obtener el mensaje del formulario
+            var message = document.getElementById('message').value;
+
+            // Construir el objeto de mensaje
+            var chatMessage = {
+                role: 'user',
+                content: message
+            };
+
+            // Convertir el objeto de mensaje en una cadena JSON
+            var chatMessageJSON = JSON.stringify(chatMessage);
+
+            // Guardar el mensaje en el almacenamiento local
+            localStorage.setItem('chatMessage', chatMessageJSON);
+            }
+    </script>
+</body>
+</html>
+

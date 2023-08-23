@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversacion personalizada</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat.css' %}">
+</head>
+<body>
+    <div id="formulario_chat">
+        <h1>Conversacion personalizada</h1>
+
+        <!-- Agregar el menú desplegable para seleccionar el perfil de hijo -->
+        <form method="POST" action="{% url 'ConversacionPersonalizada' %}">
+            {% csrf_token %}
+            <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
+            <select id="perfil_hijo" name="perfil_hijo">
+                <option value="">Ningún perfil de hijo seleccionado</option>
+                {% for hijo in hijos %}
+                    <option value="{{ hijo.id }}"
+                            {% if hijo.id == perfil_hijo_seleccionado.id %}selected{% endif %}>
+                        {{ hijo.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+            <input type="text" name="message" placeholder="Escribe tu mensaje...">
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="chat-history">
+            {% for message in session %}
+                <p>{{ message.role }}: {{ message.content }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Botón para volver a la pantalla de inicio -->
+        <a id="back-link" href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+    </div>
+
+    <script>
+        // Almacena el ID del hijo seleccionado en localStorage
+        document.getElementById("perfil_hijo").addEventListener("change", function () {
+            const selectedHijoId = this.value;
+            localStorage.setItem("selectedHijoId", selectedHijoId);
+        });
+
+        // Restablece la selección del hijo al cargar la página
+        const storedHijoId = localStorage.getItem("selectedHijoId");
+        if (storedHijoId) {
+            document.getElementById("perfil_hijo").value = storedHijoId;
+        }
+    </script>
+</body>
+</html>
+

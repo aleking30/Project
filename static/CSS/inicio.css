@@ -1,0 +1,316 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #DCFFE9;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+  
+.contenedor {
+    width: 100%;
+}
+
+#hijos-select {
+    background-color: #5FF974;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 20px; /* Ajusta el margen derecho según necesites */
+}
+.hijos-select-container {
+    display: flex;
+    align-items: center;
+}
+
+.hijos-select-container span {
+    color: #fff;
+    margin-right: 5px; /* Ajusta el margen derecho según necesites */
+}
+.content {
+    text-align: center;
+    margin-top: 100px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#btn-abrir-modal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #5FF974;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+dialog {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.option {
+    width: 30%;
+    background-color: #5FF974;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+.option2 {
+    width: 30%;
+    background-color: #5FF974;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+    margin-left: 280px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#modal {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(+120%);
+    width: 1500px;
+    height: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#modal-titulo {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#modal-definicion {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#btn-cerrar-modal {
+    background-color: #5FF974;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 85%;
+    left: 5%;
+}
+
+#btn-cerrar-modal:hover {
+    background-color: #4AC966;
+}
+
+#btn-abrir-chat {
+    background-color: #5FF974;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 85%;
+    right: 5%;
+}
+
+#btn-abrir-chat:hover {
+    background-color: #4AC966;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cerrar {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar:hover,
+.cerrar:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+#Inicio_de_cesion {
+    color: #000;
+}
+#user_name {
+    color:#000;
+}
+#password_style {
+    color:#000;
+}
+.login-required-message {
+    display: none;
+    background-color: #EDAEAE;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    top: 3%;
+    left: 37%;
+    width: 25%;
+    z-index: 1;
+}
+.option3{
+    width: 180px;
+    height: auto;
+    background-color: #5FF974;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+    margin-left: 280px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.option3:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+/* Estilos base comunes para todos los tamaños de pantalla */
+
+/* Estilos para pantallas más pequeñas (hasta 768px) */
+@media screen and (max-width: 768px) {
+    .option, .option2, .option3 {
+      width: 100%; /* Ajusta el ancho al 100% en pantallas más pequeñas */
+    }
+  }
+  
+  /* Estilos para pantallas medianas (entre 769px y 1024px) */
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+      width: 90%; /* Ajusta el ancho al 90% en pantallas medianas */
+    }
+  }
+  
+  /* Estilos para pantallas más grandes (desde 1025px) */
+  @media screen and (min-width: 1025px) {
+    .container {
+      width: 80%; /* Ajusta el ancho al 80% en pantallas más grandes */
+    }
+  }
+  .popup-content form label {
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.popup-content form input[type="text"],
+.popup-content form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup-content form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #5FF974;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.popup-content form button[type="submit"]:hover {
+    background-color: #4AC966;
+}
+
+.popup-content a {
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.popup-content a:hover {
+    text-decoration: underline;
+}
