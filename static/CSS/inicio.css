@@ -11,25 +11,6 @@ body {
 .contenedor {
     width: 100%;
 }
-
-#hijos-select {
-    background-color: #5FF974;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-right: 20px; /* Ajusta el margen derecho según necesites */
-}
-.hijos-select-container {
-    display: flex;
-    align-items: center;
-}
-
-.hijos-select-container span {
-    color: #fff;
-    margin-right: 5px; /* Ajusta el margen derecho según necesites */
-}
 .content {
     text-align: center;
     margin-top: 100px;
@@ -214,9 +195,6 @@ h2 {
     text-decoration: none;
     cursor: pointer;
 }
-#Inicio_de_cesion {
-    color: #000;
-}
 #user_name {
     color:#000;
 }
@@ -288,20 +266,6 @@ h2 {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.popup-content form button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #5FF974;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.popup-content form button[type="submit"]:hover {
-    background-color: #4AC966;
 }
 
 .popup-content a {
