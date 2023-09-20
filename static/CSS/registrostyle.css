@@ -1,95 +1,148 @@
+/* Estilos base del cuerpo y el contenedor para pantallas grandes */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  justify-content: center; /* Asegura que el contenido ocupe toda la altura de la pantalla en pantallas grandes */
+}
+
+p{
+  text-align: center;
 }
 
 .container {
-  max-width: 500px;
   width: 100%;
+  max-width: 600px; /* Establece un ancho máximo para el contenido en pantallas grandes */
   background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px; /* Agrega un espaciado interno al contenedor */
 }
 
+/* Estilos para el título */
 h2 {
   text-align: center;
   color: #333;
 }
 
-.form-group {
-  margin-bottom: 20px;
+/* Estilos para el contenedor del formulario en pantallas grandes */
+.contenedor {
+  width: 50%;
+  margin-left: 25%;
 }
 
-.field-label {
-  display: block;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-select {
-  width: 90%;
-  padding: 10px;
-  font-size: 16px;
+/* Estilos para el campo de fecha en pantallas grandes */
+.datepicker {
   border: 1px solid #ccc;
   border-radius: 5px;
+  padding: 5px;
+  color: #888;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.datepicker:focus {
+  border-color: #78c2ad;
   outline: none;
 }
 
-.error-list {
-  list-style: none;
-  color: red;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
+/* Estilos para opciones especiales en pantallas grandes */
+.Opciones-especiales {
+  margin-top: 20px;
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
-.button-wrapper {
+.Espacio-especial{
+  background-color: transparent;
+  width: 10%;
+}
+
+.Opcion-genero {
+  width: 45%;
+}
+
+.Opcion-FDN {
+  width: 45%;
+}
+
+/* Estilos para la zona de botones en pantallas grandes */
+.zona-botones {
+  margin-top: 5%;
   text-align: center;
+  display: flex;
+  max-width: 100%;
 }
 
-#volverinicio {
-  display: inline-block;
-  background-color: #ccc;
-  color: #333;
-  border: none;
-  padding: 10px 20px;
-  margin-right: 10px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+.Espacio-botones {
+  background-color: transparent;
+  width: 20%;
+}
+a{
+  width: 40%;
 }
 
-#volverinicio:hover {
-  background-color: #999;
+/* Estilos para botones en pantallas grandes */
+button {
+  width: 40%;
 }
 
-#registrarse-btn {
-  display: inline-block;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
+/* Media Query para pantallas más pequeñas (móviles) */
+@media (max-width: 768px) {
+  /* Cambios de estilo para pantallas pequeñas (móviles) */
+  .container {
+    padding: 10px; /* Reducción del espaciado interno en pantallas pequeñas */
+  }
+
+  /* Estilos para el contenedor del formulario en pantallas pequeñas (móviles) */
+  .contenedor {
+    width: 100%; /* Ancho completo en pantallas pequeñas */
+    margin-left: 0; /* Sin margen en pantallas pequeñas */
+  }
+
+  /* Estilos para el campo de fecha en pantallas pequeñas (móviles) */
+  .datepicker {
+    width: 100%; /* Ancho completo en pantallas pequeñas */
+  }
+
+  /* Estilos para opciones especiales en pantallas pequeñas (móviles) */
+  .Opciones-especiales {
+    display: flex;
+  }
+
+  a{
+    width: 40%;
+  }
+  /* Estilos para botones en pantallas pequeñas (móviles) */
+  button {
+    width: 40%; /* Ancho más amplio en pantallas pequeñas */
+  }
 }
 
-#registrarse-btn:hover {
-  background-color: #45a049;
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  /* Cambios de estilo para pantallas pequeñas (móviles) */
+  .container {
+    padding: 10px; /* Reducción del espaciado interno en pantallas pequeñas */
+  }
+
+  /* Estilos para el contenedor del formulario en pantallas pequeñas (móviles) */
+  .contenedor {
+    width: 100%; /* Ancho completo en pantallas pequeñas */
+    margin-left: 0; /* Sin margen en pantallas pequeñas */
+  }
+
+  /* Estilos para opciones especiales en pantallas pequeñas (móviles) */
+  .Opciones-especiales {
+    display: flex;
+  }
+
+  a{
+    width: 40%;
+  }
+  /* Estilos para botones en pantallas pequeñas (móviles) */
+  button {
+    width: 40%; /* Ancho más amplio en pantallas pequeñas */
+  }
 }

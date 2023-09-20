@@ -1,8 +1,3 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif; /* Establece la fuente de texto utilizada para el cuerpo del documento */
-}
-
 h1 {
     text-align: center; /* Centra el texto del encabezado h1 */
 }
@@ -16,27 +11,10 @@ form {
     background-color: #f9f9f9; /* Establece el color de fondo del formulario */
 }
 
-h2 {
-    margin-top: 20px; /* Agrega un margen superior de 20 píxeles al encabezado h2 */
-}
-
 label {
     display: block; /* Hace que las etiquetas sean elementos de bloque, lo que las muestra en una línea separada */
     margin-bottom: 10px; /* Agrega un margen inferior de 10 píxeles a las etiquetas */
     font-weight: bold; /* Establece el peso de la fuente en negrita para las etiquetas */
-}
-
-input[type="text"],
-textarea {
-    width: 100%; /* Establece el ancho de los campos de texto y las áreas de texto al 100% del contenedor */
-    padding: 5px; /* Agrega un espacio interno de 5 píxeles alrededor de los campos de texto y las áreas de texto */
-    margin-bottom: 10px; /* Agrega un margen inferior de 10 píxeles a los campos de texto y las áreas de texto */
-    border: 1px solid #ccc; /* Agrega un borde de 1 píxel con un color gris claro (#ccc) a los campos de texto y las áreas de texto */
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-    margin-right: 5px; /* Agrega un margen derecho de 5 píxeles a los botones de opción y casillas de verificación */
 }
 
 /* Estilos para dispositivos móviles (hasta 768px) */
@@ -60,38 +38,6 @@ input[type="checkbox"] {
         flex-direction: column;
         gap: 10px;
     }
-}
-
-button {
-    background-color: #4caf50; /* Establece el color de fondo del botón */
-    color: white; /* Establece el color del texto del botón */
-    border: none; /* Elimina el borde del botón */
-    padding: 10px 20px; /* Agrega un espacio interno de 10 píxeles en la parte superior e inferior y 20 píxeles en los lados del botón */
-    text-align: center; /* Centra el texto dentro del botón */
-    text-decoration: none; /* Elimina la decoración de texto del botón */
-    display: inline-block; /* Hace que el botón sea un elemento de bloque en línea */
-    font-size: 16px; /* Establece el tamaño de fuente del botón */
-    cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el botón */
-}
-
-button[type="button"]:hover,
-button[type="submit"]:hover {
-    background-color: #45a049; /* Cambia el color de fondo del botón cuando se pasa el cursor sobre él */
-}
-
-a {
-    background-color: #4caf50; /* Establece el color de fondo del enlace */
-    color: white; /* Establece el color del texto del enlace */
-    border: none; /* Elimina el borde del enlace */
-    padding: 10px 20px; /* Agrega un espacio interno de 10 píxeles en la parte superior e inferior y 20 píxeles en los lados del enlace */
-    text-align: center; /* Centra el texto dentro del enlace */
-    text-decoration: none; /* Elimina la decoración de texto del enlace */
-    font-size: 16px; /* Establece el tamaño de fuente del enlace */
-    cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el enlace */
-}
-
-a:hover {
-    background-color: #45a049; /* Cambia el color de fondo del enlace cuando se pasa el cursor sobre él */
 }
 
 #loading-overlay {

@@ -5,13 +5,19 @@
     <title>Dificultades de Aprendizaje</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_DF.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
     <script>
         // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
         function habilitarCampoTexto(elemento) {
             var textField = document.getElementById(elemento.id + "-text");
             textField.disabled = (elemento.value !== "Otro");
         }
-    </script>    
+    </script>
 </head>
 <body>
     <h1>Dificultades de Aprendizaje</h1>
@@ -19,14 +25,14 @@
     <form id="formulario" method="POST" action="">
         <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
         <select id="perfil_hijo" name="perfil_hijo">
-            <option value="">Ningún perfil de hijo creado</option>
+            <option value="">No se a creado ningun hijo</option>
             {% for hijo in hijos %}
                 <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
             {% endfor %}
         </select>
         <div class="form-group additional-fields" id="p1">
-            <h2>Pregunta 1</h2>
-            <label for="p1">¿Cuál de las siguientes áreas presenta mayor dificultad de aprendizaje para tu hijo?</label><br>
+            <h4>Pregunta 1</h4>
+            <p>¿Cuál de las siguientes áreas presenta mayor dificultad de aprendizaje para tu hijo?</p>
             <select id="p1" name="p1" onchange="habilitarCampoTexto(this)">
                 <option id="p1" name="p1" value="">Seleccionar</option>
                 <option id="p1" name="p1" value="Lectura y comprensión">Lectura y comprensión</option>
@@ -35,13 +41,13 @@
                 <option id="p1" name="p1" value="Organización y planificación">Organización y planificación</option>
                 <option id="p1" name="p1" value="Otro">Otro</option>
             </select>
-            <input type="text" id="p1-text" name="p1" disabled><br>
+            <input class="form-control" type="text" id="p1-text" name="p1" disabled>
         </div>
 
         <!-- Pregunta 2 -->
         <div id="p2">
-            <h2>Pregunta 2</h2>
-            <label for="p2">¿Qué tipo de dificultades sociales o emocionales ha experimentado tu hijo en relación con su rendimiento académico?</label><br>
+            <h4>Pregunta 2</h4>
+            <p>¿Qué tipo de dificultades sociales o emocionales ha experimentado tu hijo en relación con su rendimiento académico?</p>
             <select id="p2" name="p2" onchange="habilitarCampoTexto(this)">
                 <option id="p2" name="p2" value="">Seleccionar</option>
                 <option id="p2" name="p2" value="Dificultad para relacionarse con sus compañeros">Dificultad para relacionarse con sus compañeros</option>
@@ -50,13 +56,13 @@
                 <option id="p2" name="p2" value="Comportamiento disruptivo en el aula">Comportamiento disruptivo en el aula</option>
                 <option id="p2" name="p2" value="Otro">Otro</option>
             </select>
-            <input type="text" id="p2-text" name="p2" disabled><br>
+            <input class="form-control" type="text" id="p2-text" name="p2" disabled>
         </div>
 
         <!-- Pregunta 3 -->
         <div id="p3">
-            <h2>Pregunta 3</h2>
-            <label for="p3">¿Cuál de los siguientes síntomas describe mejor el comportamiento de tu hijo durante las tareas escolares?</label><br>
+            <h4>Pregunta 3</h4>
+            <p>¿Cuál de los siguientes síntomas describe mejor el comportamiento de tu hijo durante las tareas escolares?</p>
             <select id="p3" name="p3" onchange="habilitarCampoTexto(this)">
                 <option id="p3" name="p3" value="">Seleccionar</option>
                 <option id="p3" name="p3" value="Desinterés y falta de motivación">Desinterés y falta de motivación</option>
@@ -65,26 +71,26 @@
                 <option id="p3" name="p3" value="Problemas para seguir instrucciones">Problemas para seguir instrucciones</option>
                 <option id="p3" name="p3" value="Otro">Otro</option>
             </select>
-            <input type="text" id="p3-text" name="p3" disabled><br>
+            <input class="form-control" type="text" id="p3-text" name="p3" disabled>
         </div>
           
 
         <!-- Pregunta 4 -->
         <div id="p4">
-            <h2>Pregunta 4</h2>
-            <label for="p4">¿Qué tipo de apoyo educativo consideras que sería más beneficioso para tu hijo en este momento?</label><br>
+            <h4>Pregunta 4</h4>
+            <p>¿Qué tipo de apoyo educativo consideras que sería más beneficioso para tu hijo en este momento?</p>
             <div class="alternativas">
-                <input type="checkbox" id="alt1" value="Clases particulares"> <label for="alt1">Clases particulares</label><br>
-                <input type="checkbox" id="alt2" value="Tutorías académicas"> <label for="alt2">Tutorías académicas</label><br>
-                <input type="checkbox" id="alt3" value="Material didáctico adicional"> <label for="alt3">Material didáctico adicional</label><br>
+                <input type="checkbox" id="alt1" value="Clases particulares" class="form-check-input"> <label class="form-check-label" for="alt1">Clases particulares</label><br>
+                <input type="checkbox" id="alt2" value="Tutorías académicas" class="form-check-input"> <label class="form-check-label" for="alt2">Tutorías académicas</label><br>
+                <input type="checkbox" id="alt3" value="Material didáctico adicional" class="form-check-input"> <label class="form-check-label" for="alt3">Material didáctico adicional</label><br>
             </div>
-            <textarea id="p4-textarea" name="p4" rows="4" cols="50"></textarea><br>
+            <textarea class="form-control" id="p4-textarea" name="p4" rows="4" cols="50"></textarea>
         </div>        
 
         <!-- Pregunta 5 -->
         <div id="p5">
-            <h2>Pregunta 5</h2>
-            <label for="p5">¿Cuál de las siguientes estrategias de apoyo has utilizado con tu hijo?</label><br>
+            <h4>Pregunta 5</h4>
+            <p>¿Cuál de las siguientes estrategias de apoyo has utilizado con tu hijo?</p>
             <select id="p5" name="p5" onchange="habilitarCampoTexto(this)">
                 <option id="p5" name="p5" value="">Seleccionar</option>
                 <option id="p5" name="p5" value="Reforzamiento positivo y recompensas">Reforzamiento positivo y recompensas</option>
@@ -93,14 +99,14 @@
                 <option id="p5" name="p5" value="Programas de intervención educativa especializados">Programas de intervención educativa especializados</option>
                 <option id="p5" name="p5" value="Otro">Otro</option>
             </select>
-            <input type="text" id="p5-text" name="p5" disabled><br>
+            <input class="form-control" type="text" id="p5-text" name="p5" disabled>
         </div>
         <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
-        <a id="volverinicio" href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
+        <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
         <form id="myform" onsubmit="submitForm();">
             {% csrf_token %}
             <input type="hidden" name="hiddenMessage" id="hiddenMessage">
-            <button type="submit">Enviar</button>
+            <button class="btn btn-primary" type="submit">Enviar</button>
         </form>
     </form>
     <div id="loading-overlay">

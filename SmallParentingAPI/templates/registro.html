@@ -1,132 +1,211 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Registro de Usuario</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="{% static 'CSS/registrostyle.css' %}">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
+  <head>
+    <title>Registro de Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'CSS/registrostyle.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
+  </head>
+  <body>
     <div class="container">
-      <div class="form-wrapper">
+      <div class="contenedor">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div>
+        </div>        
         <h2>Registro de Usuario</h2>
         <form method="POST" id="registro-form">
-          {% csrf_token %}
-          
-          {% if campos_con_errores %}
+          {% csrf_token %} {% if campos_con_errores %}
+          <ul class="error-list">
+            <p>Atencion, se requiere llenar todo los campos del formulario!</p>
+          </ul>
+          {% endif %}
+
+          <div class="form-group">
+            <label for="id_nombre" class="form-label mt-4">NOMBRE:</label><br />
+            <input
+              type="text"
+              class="form-control"
+              id="id_nombre"
+              name="{{ form.nombre.html_name }}"
+              placeholder="Ingrese su nombre"
+            />
+            {% if form.nombre.errors %}
             <ul class="error-list">
-              {% for campo in campos_con_errores %}
-                <li>{{ campo }} no está completo</li>
+              {% for error in form.nombre.errors %}
+              <li>{{ error }}</li>
               {% endfor %}
             </ul>
-          {% endif %}
-          
-          <div class="form-group">
-            <label for="id_nombre" class="field-label">NOMBRE:</label><br>
-            <input type="text" id="id_nombre" name="{{ form.nombre.html_name }}" placeholder="Ingrese su nombre">
-            {% if form.nombre.errors %}
-              <ul class="error-list">
-                {% for error in form.nombre.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
             {% endif %}
           </div>
-          
+
           <div class="form-group">
-            <label for="id_apellido" class="field-label">APELLIDO:</label><br>
-            <input type="text" id="id_apellido" name="{{ form.apellido.html_name }}" placeholder="Ingrese su apellido">
+            <label for="id_apellido" class="form-label mt-4">APELLIDO:</label><br />
+            <input
+              type="text"
+              id="id_apellido"
+              class="form-control"
+              name="{{ form.apellido.html_name }}"
+              placeholder="Ingrese su apellido"
+            />
             {% if form.apellido.errors %}
-              <ul class="error-list">
-                {% for error in form.apellido.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
+            <ul class="error-list">
+              {% for error in form.apellido.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
             {% endif %}
-          </div>          
-          
-          <div class="form-group">
-            <span class="field-title">GENERO:</span><br>
-            {{ form.genero }}
-            {% if form.genero.errors %}
+          </div>
+
+          <div class="Opciones-especiales">
+            <div class="Opcion-genero">
+              <label for="{{ form.genero.id_for_label }}" class="field-title">GENERO:</label><br />
+              <select class="form-select" id="{{ form.genero.id_for_label }}" name="{{ form.genero.name }}">
+                {% for choice in form.genero.field.choices %}
+                  <option value="{{ choice.0 }}" {% if choice.0 == form.genero.value %}selected{% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+              </select>
+              {% if form.genero.errors %}
               <ul class="error-list">
                 {% for error in form.genero.errors %}
-                  <li>{{ error }}</li>
+                <li>{{ error }}</li>
                 {% endfor %}
               </ul>
-            {% endif %}
-          </div>
-          
-          <div class="form-group FECHA-NACIMIENTO">
-            <span class="field-title">FECHA DE NACIMIENTO:</span><br>
-            <input type="date" class="datepicker" id="id_fecha_nacimiento" name="{{ form.fecha_nacimiento.html_name }}" placeholder="Ingrese fecha de nacimiento">
-            {% if form.fecha_nacimiento.errors %}
+              {% endif %}
+            </div>          
+            <div class="Espacio-especial"></div>
+            <div class="Opcion-FDN">
+              <span class="field-title">FECHA DE NACIMIENTO:</span><br />
+              <input
+                type="date"
+                class="datepicker"
+                id="id_fecha_nacimiento"
+                name="{{ form.fecha_nacimiento.html_name }}"
+              />
+              {% if form.fecha_nacimiento.errors %}
               <ul class="error-list">
                 {% for error in form.fecha_nacimiento.errors %}
-                  <li>{{ error }}</li>
+                <li>{{ error }}</li>
                 {% endfor %}
               </ul>
-            {% endif %}
+              {% endif %}
+            </div>
           </div>
-          
           <div class="form-group">
-            <label for="id_username" class="field-label">NOMBRE DE USUARIO:</label><br>
-            <input type="text" id="id_username" name="{{ form.username.html_name }}" placeholder="Ingrese nombre de usuario">
+            <label for="id_username" class="form-label mt-4"
+              >NOMBRE DE USUARIO:</label
+            ><br />
+            <input
+              type="text"
+              id="id_username"
+              class="form-control"
+              name="{{ form.username.html_name }}"
+              placeholder="Ingrese nombre de usuario"
+            />
             {% if form.username.errors %}
-              <ul class="error-list">
-                {% for error in form.username.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
+            <ul class="error-list">
+              {% for error in form.username.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
             {% endif %}
           </div>
-          
+
           <div class="form-group email">
-            <label for="id_email" class="field-label">EMAIL:</label><br>
-            <input type="email" id="id_email" name="{{ form.email.html_name }}" placeholder="Ingrese su email">
+            <label for="id_email" class="form-label mt-4">EMAIL:</label><br />
+            <input
+              type="email"
+              id="id_email"
+              class="form-control"
+              name="{{ form.email.html_name }}"
+              placeholder="Ingrese su email"
+            />
             {% if form.email.errors %}
-              <ul class="error-list">
-                {% for error in form.email.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
+            <ul class="error-list">
+              {% for error in form.email.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
             {% endif %}
           </div>
-          
+
           <div class="form-group password1">
-            <label for="id_password1" class="field-label">CONTRASEÑA:</label><br>
-            <input type="password" id="id_password1" name="{{ form.password1.html_name }}" placeholder="Ingrese su contraseña">
+            <label for="id_password1" class="form-label mt-4">CONTRASEÑA:</label
+            ><br />
+            <input
+              type="password"
+              id="id_password1"
+              class="form-control"
+              name="{{ form.password1.html_name }}"
+              placeholder="Ingrese su contraseña"
+            />
             {% if form.password1.errors %}
-              <ul class="error-list">
-                {% for error in form.password1.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
+            <ul class="error-list">
+              {% for error in form.password1.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
             {% endif %}
           </div>
-          
+
           <div class="form-group password2">
-            <label for="id_password2" class="field-label">CONFIRMAR CONTRASEÑA:</label><br>
-            <input type="password" id="id_password2" name="{{ form.password2.html_name }}" placeholder="Confirme su contraseña">
+            <label for="id_password2" class="form-label mt-4"
+              >CONFIRMAR CONTRASEÑA:</label
+            ><br />
+            <input
+              type="password"
+              id="id_password2"
+              class="form-control"
+              name="{{ form.password2.html_name }}"
+              placeholder="Confirme su contraseña"
+            />
             {% if form.password2.errors %}
-              <ul class="error-list">
-                {% for error in form.password2.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
+            <ul class="error-list">
+              {% for error in form.password2.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
             {% endif %}
-          </div>             
-          
-          <div class="button-wrapper">
-            <a id="volverinicio" href="{% url 'inicio' %}">VOLVER A INICIO</a>
-            <button type="submit" id="registrarse-btn">REGISTRARSE</button>
+          </div>
+
+          <div class="zona-botones">
+            <a class="btn btn-outline-secondary" href="{% url 'inicio' %}">VOLVER A INICIO</a>
+            <div class="Espacio-botones"></div>
+            <button class="btn btn-outline-primary" type="submit" id="registrarse-btn">REGISTRARSE</button>
           </div>
         </form>
       </div>
     </div>
-  </body>  
+    <script>
+      // Captura el formulario y la barra de carga por sus IDs
+      const formulario = document.getElementById('registro-form');
+      const barraDeCarga = document.getElementById('progress-bar');
+
+      // Establece el valor inicial de la barra de carga a 0
+      barraDeCarga.style.width = '0%';
+
+      // Agrega un evento 'input' a todos los campos del formulario
+      const campos = formulario.querySelectorAll('input, select');
+      campos.forEach((campo) => {
+        campo.addEventListener('input', () => {
+          // Calcula el progreso actual en función del número de campos completados
+          const camposCompletados = Array.from(campos).filter((campo) => campo.value !== '').length;
+          const progreso = (camposCompletados / campos.length) * 100;
+
+          // Actualiza la barra de carga con el nuevo progreso
+          barraDeCarga.style.width = progreso + '%';
+          barraDeCarga.setAttribute('aria-valuenow', progreso);
+        });
+      });
+    </script>
+  </body>
 </html>
-
-
-

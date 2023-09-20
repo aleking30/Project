@@ -6,71 +6,88 @@
     <title>Registro de Hijo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/agregarhijo.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
     <script>
         // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
         function habilitarCampoTexto(elemento) {
             var textField = document.getElementById(elemento.id + "-text");
             textField.disabled = (elemento.value !== "Otro" && elemento.value !== "Si");
+
+            // Si la opción seleccionada es "Sí", establece el placeholder en "Por favor especifica cual"
+            if (elemento.value === "Si" || elemento.value === "Otro") {
+                textField.placeholder = "Por favor especifica cual";
+            } else {
+                // Si la opción no es "Sí", borra el placeholder
+                textField.placeholder = "";
+            }
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>Agregar Hijo</h1>
-        <form id="agregar-hijo-form" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="nombre">Nombre del Hijo:</label>
-                <input type="text" id="nombre" name="nombrehijo" required>
-            </div>
+        <div class="contenedor">
+            <h1>Agregar Hijo</h1>
+            <form id="agregar-hijo-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nombre" class="form-label mt-4">NOMBRE DEL HIJO/A:</label>
+                    <input type="text" id="nombre" name="nombrehijo" class="form-control" placeholder="Nombre del hijo/a" required>
+                </div>
 
-            <div class="form-group">
-                <label for="F_N_hijo">Fecha de Nacimiento:</label>
-                <input type="date" id="F_N_hijo" name="F_N" required>
-            </div>
+                <div class="form-group">
+                    <label for="F_N_hijo" class="form-label mt-4">FECHA DE NACIMIENTO:</label>
+                    <input type="date" id="F_N_hijo" name="F_N" class="datepicker" required>
+                </div>
 
-            <div class="form-group">
-                <label for="genero">Género:</label>
-                <select id="genero" name="genero_sexo" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="genero" class="form-label mt-4">GENERO:</label>
+                    <select class="form-select" id="genero" name="genero_sexo" required>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="Grado_Academico">Grado académico:</label>
-                <input type="text" id="Grado_Academico" name="Grado_Academico" required>
-            </div>
+                <div class="form-group">
+                    <label for="Grado_Academico" class="form-label mt-4">GRADO ACADEMICO:</label>
+                    <input type="text" id="Grado_Academico" name="Grado_Academico" class="form-control" placeholder="Grado academico" required>
+                </div>
 
-            <div class="form-group">
-                <label for="Favorita">Materia favorita:</label>
-                <select id="Favorita" name="materia_favorita" onchange="habilitarCampoTexto(this)" required>
-                    <option value="">Seleccionar</option>
-                    <option value="Lectura y comprensión">Lectura y comprensión</option>
-                    <option value="Matemáticas">Matemáticas</option>
-                    <option value="Ciencias">Ciencias</option>
-                    <option value="Historia">Historia</option>
-                    <option value="Otro">Otro</option>
-                </select>
-                <input type="text" id="Favorita-text" name="otra_materia_favorita" disabled>
-            </div>
+                <div class="form-group">
+                    <label for="Favorita" class="form-label mt-4">MATERIA FAVORITA:</label>
+                    <select class="form-select" id="Favorita" name="materia_favorita" onchange="habilitarCampoTexto(this)" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Lectura y comprensión">Lectura y comprensión</option>
+                        <option value="Matemáticas">Matemáticas</option>
+                        <option value="Ciencias">Ciencias</option>
+                        <option value="Historia">Historia</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <input type="text" id="Favorita-text" class="form-control" name="otra_materia_favorita" disabled>
+                </div>
 
-            <div class="form-group">
-                <label for="enfermedad">¿Tiene alguna enfermedad de salud mental diagnosticada?</label>
-                <select id="enfermedad" name="enfermedad" onchange="habilitarCampoTexto(this)" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-                <input type="text" id="enfermedad-text" name="otra_enfermedad" disabled>
-            </div>
+                <div class="form-group">
+                    <label for="enfermedad" class="form-label mt-4">¿TIENE ALGUNA ENFERMEDAD DE SALUD MENTAL DIAGNOSTICADA?</label>
+                    <select class="form-select" id="enfermedad" name="enfermedad" onchange="habilitarCampoTexto(this)" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Si">Sí</option>
+                        <option value="No">No</option>
+                    </select>
+                    <input type="text" id="enfermedad-text" class="form-control" name="otra_enfermedad" disabled>
+                </div>
 
-            <div class="form-group">
-                <button type="submit">Agregar Hijo</button>
-            </div>
-            <a href="{% url 'inicio' %}">Inicio</a>
-        </form>
-
+                <div class="botones">
+                    <a class="btn btn-secondary" href="{% url 'inicio' %}">VOLVER A INICIO</a>
+                    <div class="Separador"></div>
+                    <button class="btn btn-primary" type="submit">AGREGAR HIJO</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -55,13 +55,35 @@ h1 {
     margin-bottom: 30px;
 }
 
+.definicion {
+    flex: 1; /* El texto ocupará el 50% del ancho del contenedor flex */
+    padding: 20px; /* Espacio alrededor del texto */
+  }
 .options {
+    max-width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
+.secciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Espacio entre las secciones */
+  }
 
+.Espacio-horizontal {
+    height: 80px; /* Ajusta la altura según tu preferencia para separar las secciones */
+    width: 100%; /* Garantiza que el espacio horizontal ocupe todo el ancho disponible */
+    background-color: transparent; /* Esto asegura que el espacio no tenga color de fondo visible */
+}
+.Espacio-Horizontal-offcanvas{
+    height:20px;
+    background-color: transparent;
+}
 .option {
+    flex: 1;
     width: 30%;
     background-color: #5FF974;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -78,23 +100,15 @@ h1 {
     color: black;
 }
 
-.option2 {
-    width: 30%;
-    background-color: #5FF974;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 30px;
-    margin-left: 280px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+.features_image-wrapper {
+    flex: 1; /* La imagen ocupará el 50% del ancho del contenedor flex */
+  }
 
-.option2:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    color: black;
-}
+.features_image {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+    height: auto;
+    display: block;
+  }
 
 h2 {
     font-size: 1.2rem;
@@ -172,6 +186,7 @@ h2 {
 }
 
 .popup-content {
+    animation: fadeIn 0.3s ease-in-out;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -232,28 +247,7 @@ h2 {
 }
 
 /* Estilos base comunes para todos los tamaños de pantalla */
-
-/* Estilos para pantallas más pequeñas (hasta 768px) */
-@media screen and (max-width: 768px) {
-    .option, .option2, .option3 {
-      width: 100%; /* Ajusta el ancho al 100% en pantallas más pequeñas */
-    }
-  }
-  
-  /* Estilos para pantallas medianas (entre 769px y 1024px) */
-  @media screen and (min-width: 769px) and (max-width: 1024px) {
-    .container {
-      width: 90%; /* Ajusta el ancho al 90% en pantallas medianas */
-    }
-  }
-  
-  /* Estilos para pantallas más grandes (desde 1025px) */
-  @media screen and (min-width: 1025px) {
-    .container {
-      width: 80%; /* Ajusta el ancho al 80% en pantallas más grandes */
-    }
-  }
-  .popup-content form label {
+.popup-content form label {
     font-size: 18px;
     color: #000;
     margin-bottom: 5px;
@@ -277,4 +271,98 @@ h2 {
 
 .popup-content a:hover {
     text-decoration: underline;
+}
+
+.loader {
+    flex: 1;
+    width: 100%;
+    height: 12px;
+    display: inline-block;
+    background-color: #78c2ad;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+    font-size: 30px;
+    background-size: 1em 1em;
+    box-sizing: border-box;
+    animation: barStripe 1s linear infinite;
+}
+  
+@keyframes barStripe {
+    0% {
+        background-position: 1em 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.Superior-popup{
+    display: flex;
+    align-items: center;
+}
+
+.Titulo-popup {
+    padding: 20px; /* Ajusta el valor del padding según tus necesidades */
+    text-align: center; /* Centra horizontalmente el contenido */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente verticalmente */
+}
+
+.Titulo-popup h3 {
+    margin: 0; /* Elimina cualquier margen predeterminado para evitar saltos de línea */
+    white-space: nowrap; /* Evita el salto de línea */
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px); /* Desplaza hacia arriba para dar un efecto de entrada */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+
+/* Define una animación llamada "fadeOut" para el cierre */
+@keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+}
+
+/* Estilos para pantallas más pequeñas (hasta 768px) */
+@media (max-width: 768px) {
+    .secciones {
+        flex-direction: column;
+    }
+
+    .option,
+    .definicion {
+        width: 100%; /* Ocupar todo el ancho disponible en dispositivos móviles */
+        order: 1;
+    }
+
+    .definicion {
+        order: 2;
+    }
+}
+  
+/* Estilos para pantallas medianas (entre 769px y 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+      width: 90%; /* Ajusta el ancho al 90% en pantallas medianas */
+    }
+}
+  
+/* Estilos para pantallas más grandes (desde 1025px) */
+@media screen and (min-width: 1025px) {
+    .container {
+        width: 80%; /* Ajusta el ancho al 80% en pantallas más grandes */
+    }
 }

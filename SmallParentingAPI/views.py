@@ -91,6 +91,9 @@ def inicio(request):
 
     return render(request, 'Pantalla_de_inicio.html', {'hijos': hijos})
 
+def ModificarHijo(request):
+    return render(request, 'ModificarHijo.html')
+
 def cerrar_sesion(request):
     logout(request)
     return redirect('/inicio/')
