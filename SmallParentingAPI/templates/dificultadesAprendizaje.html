@@ -1,166 +1,455 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Dificultades de Aprendizaje</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_DF.css' %}">
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
-    <script>
-        // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
-        function habilitarCampoTexto(elemento) {
-            var textField = document.getElementById(elemento.id + "-text");
-            textField.disabled = (elemento.value !== "Otro");
-        }
-    </script>
-</head>
-<body>
-    <h1>Dificultades de Aprendizaje</h1>
-    <!-- Botón para volver a la pantalla de inicio -->
-    <form id="formulario" method="POST" action="">
-        <label for="perfil_hijo">Seleccionar perfil del hijo:</label>
-        <select id="perfil_hijo" name="perfil_hijo">
-            <option value="">No se a creado ningun hijo</option>
-            {% for hijo in hijos %}
-                <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
-            {% endfor %}
-        </select>
-        <div class="form-group additional-fields" id="p1">
-            <h4>Pregunta 1</h4>
-            <p>¿Cuál de las siguientes áreas presenta mayor dificultad de aprendizaje para tu hijo?</p>
-            <select id="p1" name="p1" onchange="habilitarCampoTexto(this)">
-                <option id="p1" name="p1" value="">Seleccionar</option>
-                <option id="p1" name="p1" value="Lectura y comprensión">Lectura y comprensión</option>
-                <option id="p1" name="p1" value="Matemáticas">Matemáticas</option>
-                <option id="p1" name="p1" value="Escritura y expresión">Escritura y expresión</option>
-                <option id="p1" name="p1" value="Organización y planificación">Organización y planificación</option>
-                <option id="p1" name="p1" value="Otro">Otro</option>
-            </select>
-            <input class="form-control" type="text" id="p1-text" name="p1" disabled>
-        </div>
+    <head>
+        <title>Dificultades de Aprendizaje</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_DF.css' %}">
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
+        <script>
+            // Función para habilitar o deshabilitar el campo de texto según la opción seleccionada
+            function habilitarCampoTexto(elemento) {
+                var textField = document.getElementById(elemento.id + "-text");
+                textField.disabled = (elemento.value !== "Otro");
+            }
+        </script>
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <a
+                        class="navbar_logo-wrapper w-inline-block"
+                        href="{% url 'inicio' %}"
+                    >
+                        <img
+                        src="{% static 'imagenes' %}"
+                        loading="eager"
+                        width="50"
+                        height="50"
+                        class="navbar_logo"
+                        />
+                    </a>
+                    <a class="navbar-brand" href="{% url 'inicio' %}">SMALLPARENTING</a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse"
+                        aria-controls="navbarCollapse"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a
+                                class="nav-link dropdown-toggle"
+                                data-bs-toggle="dropdown"
+                                href="#"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="true"
+                                >Temas</a
+                                >
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" id="link-dificultades"
+                                        >Dificultades de aprendizaje</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-presion"
+                                        >Presión académica</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-salud"
+                                        >Salud mental estudiantil</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-comunicacion"
+                                        >Falta de comunicación</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-conducta"
+                                        >Problemas de conducta</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-gestion"
+                                        >Gestión del tiempo</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-conversacion"
+                                        >Conversación personalizada</a
+                                    >
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-md-auto">
+                            {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'agregar_hijo' %}"
+                                >Agregar Hijo</a
+                                >
+                            </li>
+                            {% endif %} {% if not request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/registro/">Registrarse</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="mostrarPopup()"
+                                >Iniciar sesión</a
+                                >
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a
+                                class="nav-link"
+                                data-bs-toggle="offcanvas"
+                                href="#PerfilHijo"
+                                role="button"
+                                aria-controls="PerfilesHijos"
+                                >Perfiles</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'historial_respuestas' %}"
+                                >Historial</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link" href="#"
+                                >{{ request.user.username }}</span
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <form action="{% url 'cerrar_sesion' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary">
+                                    Cerrar Sesión
+                                </button>
+                                </form>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="contenedor-formulario">
+                <h1>Dificultades de Aprendizaje</h1>
+                <!-- Botón para volver a la pantalla de inicio -->
+                <form class="formulario-container" id="formulario" method="POST" action="">
+                    <h4>Seleccionar perfil del hijo:</h4>
+                    <select class="form-select" id="perfil_hijo" name="perfil_hijo">
+                        <option value="">Seleccionar perfil</option>
+                        {% for hijo in hijos %}
+                            <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="espacio" id="p1">
+                        <h4>Pregunta 1</h4>
+                        <p>¿Cuál de las siguientes áreas presenta mayor dificultad de aprendizaje para tu hijo?</p>
+                        <select class="form-select" id="p1" name="p1" onchange="habilitarCampoTexto(this)">
+                            <option id="p1" name="p1" value="">Seleccionar</option>
+                            <option id="p1" name="p1" value="Arte, Musica, Teatro (Educacion Artistica)">Arte, Música, Teatro (Educación Artística)</option>
+                            <option id="p1" name="p1" value="Biologia">Biología</option>
+                            <option id="p1" name="p1" value="Ciencias Naturales">Ciencias Naturales</option>
+                            <option id="p1" name="p1" value="Ciencias Sociales">Ciencias Sociales</option>
+                            <option id="p1" name="p1" value="Economia">Economía</option>
+                            <option id="p1" name="p1" value="Educacion Ambiental">Educación Ambiental</option>
+                            <option id="p1" name="p1" value="Educacion Etica y Ciudadana">Educación Ética y Ciudadana</option>
+                            <option id="p1" name="p1" value="Educacion Fisica">Educación Física</option>
+                            <option id="p1" name="p1" value="Educacion para la Ciudadania">Educación para la Ciudadanía</option>
+                            <option id="p1" name="p1" value="Educacion para la Paz">Educación para la Paz</option>
+                            <option id="p1" name="p1" value="Educacion para la Salud">Educación para la Salud</option>
+                            <option id="p1" name="p1" value="Educacion Religiosa">Educación Religiosa</option>
+                            <option id="p1" name="p1" value="Educacion Sexual">Educación Sexual</option>
+                            <option id="p1" name="p1" value="Filosofia">Filosofía</option>
+                            <option id="p1" name="p1" value="Fisica">Física</option>
+                            <option id="p1" name="p1" value="Formacion Civica y Etica">Formación Cívica y Ética</option>
+                            <option id="p1" name="p1" value="Geografia">Geografía</option>
+                            <option id="p1" name="p1" value="Historia">Historia</option>
+                            <option id="p1" name="p1" value="Ingles u otros idiomas extranjeros">Inglés u otros idiomas extranjeros</option>
+                            <option id="p1" name="p1" value="Informatica o Tecnologias de la Informacion">Informática o Tecnologías de la Información</option>
+                            <option id="p1" name="p1" value="Lengua y Literatura">Lengua y Literatura</option>
+                            <option id="p1" name="p1" value="Matematicas">Matemáticas</option>
+                            <option id="p1" name="p1" value="Musica">Música</option>
+                            <option id="p1" name="p1" value="Orientacion Vocacional">Orientación Vocacional</option>
+                            <option id="p1" name="p1" value="Psicologia">Psicología</option>
+                            <option id="p1" name="p1" value="Quimica">Química</option>
+                            <option id="p1" name="p1" value="Religion o Etica">Religión o Ética</option>
+                            <option id="p1" name="p1" value="Sociologia">Sociología</option>
+                            <option id="p1" name="p1" value="Tecnologia">Tecnología</option>
+                            <option id="p1" name="p1" value="Otro">Otro</option>
+                        </select>
+                        <input class="form-control" type="text" id="p1-text" name="p1" disabled>
+                    </div>
 
-        <!-- Pregunta 2 -->
-        <div id="p2">
-            <h4>Pregunta 2</h4>
-            <p>¿Qué tipo de dificultades sociales o emocionales ha experimentado tu hijo en relación con su rendimiento académico?</p>
-            <select id="p2" name="p2" onchange="habilitarCampoTexto(this)">
-                <option id="p2" name="p2" value="">Seleccionar</option>
-                <option id="p2" name="p2" value="Dificultad para relacionarse con sus compañeros">Dificultad para relacionarse con sus compañeros</option>
-                <option id="p2" name="p2" value="Ansiedad o estrés relacionado con el rendimiento escolar">Ansiedad o estrés relacionado con el rendimiento escolar</option>
-                <option id="p2" name="p2" value="Baja autoestima y falta de confianza en sí mismo">Baja autoestima y falta de confianza en sí mismo</option>
-                <option id="p2" name="p2" value="Comportamiento disruptivo en el aula">Comportamiento disruptivo en el aula</option>
-                <option id="p2" name="p2" value="Otro">Otro</option>
-            </select>
-            <input class="form-control" type="text" id="p2-text" name="p2" disabled>
-        </div>
+                    <!-- Pregunta 2 -->
+                    <div id="p2" class="espacio">
+                        <h4>Pregunta 2</h4>
+                        <p>¿Qué tipo de dificultades sociales o emocionales ha experimentado tu hijo en relación con su rendimiento académico?</p>
+                        <select class="form-select" id="p2" name="p2" onchange="habilitarCampoTexto(this)">
+                            <option id="p2" name="p2" value="">Seleccionar</option>
+                            <option id="p2" name="p2" value="Ansiedad o estres relacionado con el rendimiento escolar">Ansiedad o estrés relacionado con el rendimiento escolar</option>
+                            <option id="p2" name="p2" value="Baja autoestima y falta de confianza en sí mismo">Baja autoestima y falta de confianza en sí mismo</option>
+                            <option id="p2" name="p2" value="Bullying o acoso escolar">Bullying o acoso escolar</option>
+                            <option id="p2" name="p2" value="Comportamiento disruptivo en el aula">Comportamiento disruptivo en el aula</option>
+                            <option id="p2" name="p2" value="Dificultad para relacionarse con sus compañeros">Dificultad para relacionarse con sus compañeros</option>
+                            <option id="p2" name="p2" value="Dificultades en la resolucion de conflictos">Dificultades en la resolución de conflictos</option>
+                            <option id="p2" name="p2" value="Falta de apoyo en el hogar">Falta de apoyo en el hogar</option>
+                            <option id="p2" name="p2" value="Problemas familiares">Problemas familiares</option>
+                            <option id="p2" name="p2" value="Otro">Otro</option>
+                        </select>
+                        <input class="form-control" type="text" id="p2-text" name="p2" disabled>
+                    </div>
 
-        <!-- Pregunta 3 -->
-        <div id="p3">
-            <h4>Pregunta 3</h4>
-            <p>¿Cuál de los siguientes síntomas describe mejor el comportamiento de tu hijo durante las tareas escolares?</p>
-            <select id="p3" name="p3" onchange="habilitarCampoTexto(this)">
-                <option id="p3" name="p3" value="">Seleccionar</option>
-                <option id="p3" name="p3" value="Desinterés y falta de motivación">Desinterés y falta de motivación</option>
-                <option id="p3" name="p3" value="Dificultad para mantener la atención">Dificultad para mantener la atención</option>
-                <option id="p3" name="p3" value="Frustración y bajo autoestima">Frustración y bajo autoestima</option>
-                <option id="p3" name="p3" value="Problemas para seguir instrucciones">Problemas para seguir instrucciones</option>
-                <option id="p3" name="p3" value="Otro">Otro</option>
-            </select>
-            <input class="form-control" type="text" id="p3-text" name="p3" disabled>
-        </div>
-          
+                    <!-- Pregunta 3 -->
+                    <div id="p3" class="espacio">
+                        <h4>Pregunta 3</h4>
+                        <p>¿Cuál de los siguientes síntomas describe mejor el comportamiento de tu hijo durante las tareas escolares?</p>
+                        <select class="form-select" id="p3" name="p3" onchange="habilitarCampoTexto(this)">
+                            <option id="p3" name="p3" value="">Seleccionar</option>
+                            <option id="p3" name="p3" value="Ansiedad ante las tareas">Ansiedad ante las tareas</option>
+                            <option id="p3" name="p3" value="Baja tolerancia a la frustración">Baja tolerancia a la frustración</option>
+                            <option id="p3" name="p3" value="Desinterés y falta de motivación">Desinterés y falta de motivación</option>
+                            <option id="p3" name="p3" value="Dificultad para mantener la atención">Dificultad para mantener la atención</option>
+                            <option id="p3" name="p3" value="Evitación de tareas específicas">Evitación de tareas específicas</option>
+                            <option id="p3" name="p3" value="Exceso de perfeccionismo">Exceso de perfeccionismo</option>
+                            <option id="p3" name="p3" value="Falta de autonomía">Falta de autonomía</option>
+                            <option id="p3" name="p3" value="Falta de organización">Falta de organización</option>
+                            <option id="p3" name="p3" value="Frustración y bajo autoestima">Frustración y bajo autoestima</option>
+                            <option id="p3" name="p3" value="Problemas para seguir instrucciones">Problemas para seguir instrucciones</option>
+                            <option id="p3" name="p3" value="Procrastinación">Procrastinación</option>
+                            <option id="p3" name="p3" value="Otro">Otro</option>
+                        </select>
+                        <input class="form-control" type="text" id="p3-text" name="p3" disabled>
+                    </div>
+                    
 
-        <!-- Pregunta 4 -->
-        <div id="p4">
-            <h4>Pregunta 4</h4>
-            <p>¿Qué tipo de apoyo educativo consideras que sería más beneficioso para tu hijo en este momento?</p>
-            <div class="alternativas">
-                <input type="checkbox" id="alt1" value="Clases particulares" class="form-check-input"> <label class="form-check-label" for="alt1">Clases particulares</label><br>
-                <input type="checkbox" id="alt2" value="Tutorías académicas" class="form-check-input"> <label class="form-check-label" for="alt2">Tutorías académicas</label><br>
-                <input type="checkbox" id="alt3" value="Material didáctico adicional" class="form-check-input"> <label class="form-check-label" for="alt3">Material didáctico adicional</label><br>
+                    <!-- Pregunta 4 -->
+                    <div id="p4" class="espacio">
+                        <h4>Pregunta 4</h4>
+                        <p>¿Qué tipo de apoyo educativo consideras que sería más beneficioso para tu hijo en este momento?</p>
+                        <div class="alternativas">
+                            <input type="checkbox" id="alt1" value="Clases particulares" class="form-check-input"> <label class="form-check-label" for="alt1">Clases particulares</label><br>
+                            <input type="checkbox" id="alt2" value="Tutorías académicas" class="form-check-input"> <label class="form-check-label" for="alt2">Tutorías académicas</label><br>
+                            <input type="checkbox" id="alt3" value="Material didáctico adicional" class="form-check-input"> <label class="form-check-label" for="alt3">Material didáctico adicional</label><br>
+                        </div>
+                        <textarea class="form-control" id="p4-textarea" name="p4" rows="3" cols="50"></textarea>
+                    </div>        
+
+                    <!-- Pregunta 5 -->
+                    <div id="p5" class="espacio">
+                        <h4>Pregunta 5</h4>
+                        <p>¿Cuál de las siguientes estrategias de apoyo has utilizado con tu hijo?</p>
+                        <select class="form-select" id="p5" name="p5" onchange="habilitarCampoTexto(this)">
+                            <option id="p5" name="p5" value="">Seleccionar</option>
+                            <option id="p5" name="p5" value="Reforzamiento positivo y recompensas">Reforzamiento positivo y recompensas</option>
+                            <option id="p5" name="p5" value="Tutorías o clases particulares">Tutorías o clases particulares</option>
+                            <option id="p5" name="p5" value="Adaptaciones en el entorno de estudio">Adaptaciones en el entorno de estudio</option>
+                            <option id="p5" name="p5" value="Programas de intervención educativa especializados">Programas de intervención educativa especializados</option>
+                            <option id="p5" name="p5" value="Otro">Otro</option>
+                        </select>
+                        <input class="form-control" type="text" id="p5-text" name="p5" disabled>
+                    </div>
+                    <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
+                    <div class="seccion-botones">
+                        <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">VOLVER A INICIO</a>
+                        <form id="myform" onsubmit="submitForm();">
+                            {% csrf_token %}
+                            <input type="hidden" name="hiddenMessage" id="hiddenMessage">
+                            <button id="Btn-envio" class="btn btn-primary" type="submit">ENVIAR</button>
+                        </form>
+                    </div>
+                </form>
+                <div id="loading-overlay">
+                    <div id="loading-indicator"></div>
+                    <div id="loading-message">Enviando datos, espere un momento...</div>
+                </div>
             </div>
-            <textarea class="form-control" id="p4-textarea" name="p4" rows="4" cols="50"></textarea>
-        </div>        
-
-        <!-- Pregunta 5 -->
-        <div id="p5">
-            <h4>Pregunta 5</h4>
-            <p>¿Cuál de las siguientes estrategias de apoyo has utilizado con tu hijo?</p>
-            <select id="p5" name="p5" onchange="habilitarCampoTexto(this)">
-                <option id="p5" name="p5" value="">Seleccionar</option>
-                <option id="p5" name="p5" value="Reforzamiento positivo y recompensas">Reforzamiento positivo y recompensas</option>
-                <option id="p5" name="p5" value="Tutorías o clases particulares">Tutorías o clases particulares</option>
-                <option id="p5" name="p5" value="Adaptaciones en el entorno de estudio">Adaptaciones en el entorno de estudio</option>
-                <option id="p5" name="p5" value="Programas de intervención educativa especializados">Programas de intervención educativa especializados</option>
-                <option id="p5" name="p5" value="Otro">Otro</option>
-            </select>
-            <input class="form-control" type="text" id="p5-text" name="p5" disabled>
+            <div
+                class="offcanvas offcanvas-start"
+                tabindex="-1"
+                id="PerfilHijo"
+                aria-labelledby="PerfilesHijos"
+            >
+                <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="PerfilesHijos">Perfiles de Hijos</h5>
+                <button
+                    type="button"
+                    class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                ></button>
+                </div>
+                <div class="offcanvas-body">
+                <ul class="list-group">
+                    {% for hijo in hijos %}
+                    <li class="list-group-item">{{ hijo.nombre }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="Espacio-Horizontal-offcanvas"></div>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="agregar_hijo('{% url 'agregar_hijo' %}')"
+                >
+                    Agregar Hijo
+                </button>
+                <div class="Espacio-Horizontal-offcanvas"></div>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+                >
+                    Modificar Hijo
+                </button>
+                </div>
+            </div>
         </div>
-        <input type="hidden" id="perfil_hijo_seleccionado" name="perfil_hijo_seleccionado" value="">
-        <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
-        <form id="myform" onsubmit="submitForm();">
-            {% csrf_token %}
-            <input type="hidden" name="hiddenMessage" id="hiddenMessage">
-            <button class="btn btn-primary" type="submit">Enviar</button>
-        </form>
-    </form>
-    <div id="loading-overlay">
-        <div id="loading-indicator"></div>
-        <div id="loading-message">Enviando datos, espere un momento...</div>
-    </div>
-    <script src="{% static 'JS/java.df.js' %}"></script>
-    <script>
-        function showLoadingOverlay() {
-        document.getElementById('loading-overlay').style.display = 'flex';
-        }
-
-        // Función para ocultar el overlay de carga
-        function hideLoadingOverlay() {
-            document.getElementById('loading-overlay').style.display = 'none';
-        }
-
-        // Agregar el evento 'submit' al formulario y mostrar el overlay cuando se envíe
-        document.getElementById('formulario').addEventListener('submit', function() {
-            showLoadingOverlay();
-        });
-
-        function submitForm() {
-            // Obtener el mensaje del formulario
-            var message = document.getElementById('message').value;
-
-            // Construir el objeto de mensaje
-            var chatMessage = {
-                role: 'user',
-                content: message
-            };
-
-            // Convertir el objeto de mensaje en una cadena JSON
-            var chatMessageJSON = JSON.stringify(chatMessage);
-
-            // Guardar el mensaje en el almacenamiento local
-            localStorage.setItem('chatMessage', chatMessageJSON);
+        <script>
+            function ModificarHijo(url){
+                window.location.href = url;
+            }
+            function agregar_hijo(url){
+                window.location.href = url;
             }
 
-        // Capturar los elementos del DOM
-        const textarea = document.getElementById('p4-textarea');
-        const checkboxes = document.querySelectorAll('.alternativas input[type="checkbox"]');
+            // Obtén una referencia al botón "Temas" por su clase o ID, dependiendo de cómo esté definido en tu HTML
+            var botonTemas = document.querySelector('.nav-link.dropdown-toggle');
 
-        // Escuchar los eventos de cambio en las checkboxes
-        checkboxes.forEach((checkbox) => {
-            checkbox.addEventListener('change', () => {
-                if (checkbox.checked) {
-                    textarea.value += checkbox.value + '\n';
+            // Obtén una referencia al menú desplegable por su clase o ID, nuevamente, según cómo esté definido en tu HTML
+            var menuDesplegable = document.querySelector('.dropdown-menu');
+
+            // Agrega un evento click al botón "Temas"
+            botonTemas.addEventListener('click', function (event) {
+                // Evita que el evento de clic se propague hacia arriba y cierre el menú inmediatamente
+                event.stopPropagation();
+
+                // Verifica si el menú está actualmente visible
+                var estaVisible = menuDesplegable.style.display === 'block';
+
+                // Si el menú está visible, ocúltalo; de lo contrario, muéstralo
+                if (estaVisible) {
+                    menuDesplegable.style.display = 'none';
                 } else {
-                    textarea.value = textarea.value.replace(checkbox.value + '\n', '');
+                    menuDesplegable.style.display = 'block';
                 }
             });
-        });
 
-    </script>
-</body>
+            // Agrega un evento click al menú desplegable
+            menuDesplegable.addEventListener('click', function (event) {
+                // Verifica si el elemento clicado es un enlace en el menú desplegable
+                if (event.target.tagName === 'A') {
+                    // Cierra el menú desplegable
+                    menuDesplegable.style.display = 'none';
+                    // Verifica si el usuario ha iniciado sesión
+                    {% if request.user.is_authenticated %}
+                        // Obtiene el texto del enlace clicado
+                        var linkText = event.target.textContent;
+
+                        // Realiza una redirección basada en el texto del enlace
+                        switch (linkText) {
+                            case 'Dificultades de aprendizaje':
+                                window.location.href = "{% url 'dificultadesAprendizaje' %}";
+                                break;
+                            case 'Presión académica':
+                                window.location.href = "{% url 'PresionAcademica' %}";
+                                break;
+                            case 'Salud mental estudiantil':
+                                window.location.href = "{% url 'SaludMentalEstudiantil' %}";
+                                break;
+                            case 'Falta de comunicación':
+                                window.location.href = "{% url 'FaltaComunicacion' %}";
+                                break;
+                            case 'Problemas de conducta':
+                                window.location.href = "{% url 'ProblemasConducta' %}";
+                                break;
+                            case 'Gestión del tiempo':
+                                window.location.href = "{% url 'GestiondelTiempo' %}";
+                                break;
+                            case 'Conversación personalizada':
+                                window.location.href = "{% url 'ConversacionPersonalizada' %}";
+                                break;
+                            default:
+                                // Puedes manejar otros enlaces aquí o redireccionar a una página predeterminada
+                                break;
+                        }
+                    {% else %}
+                        // Si el usuario no ha iniciado sesión, muestra la ventana emergente
+                        mostrarPopup();
+                    {% endif %}
+                }
+            });
+
+            // Agrega un evento click al documento para cerrar el menú cuando se hace clic en cualquier parte de la ventana
+            document.addEventListener('click', function (event) {
+                // Verifica si el menú está actualmente visible y si el clic ocurrió fuera del menú
+                if (menuDesplegable.style.display === 'block' && !menuDesplegable.contains(event.target)) {
+                    menuDesplegable.style.display = 'none';
+                }
+            });
+
+            // Espera a que el documento esté completamente cargado
+            document.addEventListener('DOMContentLoaded', function () {
+                // Encuentra el enlace de "Perfiles"
+                var perfilesLink = document.querySelector('a[href="#offcanvasPerfiles"]');
+
+                // Encuentra el offcanvas por su ID
+                var offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasPerfiles'));
+
+                // Agrega un evento de clic al enlace de "Perfiles" para abrir el offcanvas
+                perfilesLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Evita que el enlace funcione como una URL
+                    offcanvas.toggle(); // Abre o cierra el offcanvas según su estado actual
+                });
+            });
+
+            function showLoadingOverlay() {
+                document.getElementById('loading-overlay').style.display = 'flex';
+            }
+            
+            // Función para ocultar el overlay de carga
+            function hideLoadingOverlay() {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
+
+            // Agregar el evento 'submit' al formulario y mostrar el overlay cuando se envíe
+            document.getElementById('formulario').addEventListener('submit', function() {
+                showLoadingOverlay();
+            });
+
+            function submitForm() {
+                // Obtener el mensaje del formulario
+                var message = document.getElementById('message').value;
+
+                // Construir el objeto de mensaje
+                var chatMessage = {
+                    role: 'user',
+                    content: message
+                };
+
+                // Convertir el objeto de mensaje en una cadena JSON
+                var chatMessageJSON = JSON.stringify(chatMessage);
+
+                // Guardar el mensaje en el almacenamiento local
+                localStorage.setItem('chatMessage', chatMessageJSON);
+                }
+
+            // Capturar los elementos del DOM
+            const textarea = document.getElementById('p4-textarea');
+            const checkboxes = document.querySelectorAll('.alternativas input[type="checkbox"]');
+
+            // Escuchar los eventos de cambio en las checkboxes
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        textarea.value += checkbox.value + '\n';
+                    } else {
+                        textarea.value = textarea.value.replace(checkbox.value + '\n', '');
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>

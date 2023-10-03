@@ -38,11 +38,12 @@
               id="id_nombre"
               name="{{ form.nombre.html_name }}"
               placeholder="Ingrese su nombre"
+              value="{{ form.nombre.value }}"
             />
             {% if form.nombre.errors %}
             <ul class="error-list">
               {% for error in form.nombre.errors %}
-              <li>{{ error }}</li>
+              <li class="text-secondary">{{ error }}</li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -56,11 +57,12 @@
               class="form-control"
               name="{{ form.apellido.html_name }}"
               placeholder="Ingrese su apellido"
+              value="{{ form.apellido.value }}"
             />
             {% if form.apellido.errors %}
             <ul class="error-list">
               {% for error in form.apellido.errors %}
-              <li>{{ error }}</li>
+              <li class="text-secondary">{{ error }}</li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -77,7 +79,7 @@
               {% if form.genero.errors %}
               <ul class="error-list">
                 {% for error in form.genero.errors %}
-                <li>{{ error }}</li>
+                <li class="text-secondary">{{ error }}</li>
                 {% endfor %}
               </ul>
               {% endif %}
@@ -90,11 +92,12 @@
                 class="datepicker"
                 id="id_fecha_nacimiento"
                 name="{{ form.fecha_nacimiento.html_name }}"
+                value="{{ form.fecha_nacimiento.value|default:'' }}"
               />
               {% if form.fecha_nacimiento.errors %}
               <ul class="error-list">
                 {% for error in form.fecha_nacimiento.errors %}
-                <li>{{ error }}</li>
+                <li class="text-secondary">{{ error }}</li>
                 {% endfor %}
               </ul>
               {% endif %}
@@ -110,11 +113,12 @@
               class="form-control"
               name="{{ form.username.html_name }}"
               placeholder="Ingrese nombre de usuario"
+              value="{{ form.username.value }}"
             />
             {% if form.username.errors %}
             <ul class="error-list">
               {% for error in form.username.errors %}
-              <li>{{ error }}</li>
+              <li class="text-secondary">{{ error }}</li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -128,11 +132,12 @@
               class="form-control"
               name="{{ form.email.html_name }}"
               placeholder="Ingrese su email"
+              value="{{ form.email.value }}"
             />
             {% if form.email.errors %}
             <ul class="error-list">
               {% for error in form.email.errors %}
-              <li>{{ error }}</li>
+              <li class="text-secondary">{{ error }}</li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -148,12 +153,12 @@
               name="{{ form.password1.html_name }}"
               placeholder="Ingrese su contraseña"
             />
-            {% if form.password1.errors %}
-            <ul class="error-list">
-              {% for error in form.password1.errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
+            {% if 'password1' in campos_con_errores %}
+                <ul class="error-list">
+                    {% for error in form.password1.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
           </div>
 
@@ -168,12 +173,12 @@
               name="{{ form.password2.html_name }}"
               placeholder="Confirme su contraseña"
             />
-            {% if form.password2.errors %}
-            <ul class="error-list">
-              {% for error in form.password2.errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
+            {% if 'password2' in campos_con_errores %}
+                <ul class="error-list">
+                    {% for error in form.password2.errors %}
+                        <li class="text-secondary">{{ error }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
           </div>
 
@@ -193,8 +198,8 @@
       // Establece el valor inicial de la barra de carga a 0
       barraDeCarga.style.width = '0%';
 
-      // Agrega un evento 'input' a todos los campos del formulario
-      const campos = formulario.querySelectorAll('input, select');
+      // Agrega un evento 'input' a todos los campos del formulario excepto contraseñas
+      const campos = formulario.querySelectorAll('input:not([type="password"]), select');
       campos.forEach((campo) => {
         campo.addEventListener('input', () => {
           // Calcula el progreso actual en función del número de campos completados

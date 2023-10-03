@@ -5,13 +5,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import PerfilUsuario, Hijo
 from .forms import RegistroForm
 import openai, json
 
-llave = ""
+llave = "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"
 openai.api_key = llave
-
+    
 def ask_openai(conversa):
     print(conversa) #supervision de contexto de la aplicacion
     response = openai.ChatCompletion.create(
@@ -45,32 +46,30 @@ def registro(request):
             user = authenticate(request, username=username, password=password)
             login(request, user)
 
+            request.session['registro_exitoso'] = True
+
             return redirect('inicio')  # Reemplaza 'nombre_de_la_vista_de_inicio' con el nombre de la vista de inicio en tus urls.py
 
     else:
-        form = RegistroForm()
+        # Si la solicitud es GET, verifica si hay un usuario existente y usa sus datos para inicializar el formulario
+        user = request.user if request.user.is_authenticated else None
+        initial_data = {
+            'nombre': user.nombre if user else '',  # Aquí debes ajustar el nombre del campo en User que almacena el nombre
+            'apellido': user.apellido if user else '',
+            'username': user.username if user else '',
+            'genero': user.genero if user else '',
+            'fecha_nacimiento': user.fecha_nacimiento if user else '',
+            'email': user.email if user else ''  # Ajusta el nombre del campo en User que almacena el apellido
+        }
+        form = RegistroForm(initial=initial_data)
 
     campos_con_errores = form.errors.keys() if form.errors else None
     return render(request, 'registro.html', {'form': form, 'campos_con_errores': campos_con_errores})
 
-def iniciar_sesion(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # Redirigir al usuario a la página deseada después del inicio de sesión exitoso
-                return redirect('inicio_sesion_exitoso')
-            else:
-                form.add_error(None, 'Nombre de usuario o contraseña incorrectos.')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'INICIO_SESION.html', {'form': form})
-
 def inicio(request):
+    login_exitoso = request.session.pop('login_exitoso', False)
+
+    registro_exitoso = request.session.pop('registro_exitoso', False)
     # Verificar si el usuario ha iniciado sesión
     if request.method == 'POST':
         username = request.POST['username']
@@ -78,6 +77,8 @@ def inicio(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            request.session['login_exitoso'] = True
+            messages.success(request, "Inicio de sesión exitoso.")
             return redirect('/inicio/?username={}'.format(username))
         else:
             error_message = 'Credenciales inválidas. Por favor, intenta nuevamente.'
@@ -89,7 +90,7 @@ def inicio(request):
     else:
         hijos = []
 
-    return render(request, 'Pantalla_de_inicio.html', {'hijos': hijos})
+    return render(request, 'Pantalla_de_inicio.html', {'hijos': hijos, 'registro_exitoso': registro_exitoso, 'login_exitoso':login_exitoso})
 
 def ModificarHijo(request):
     return render(request, 'ModificarHijo.html')

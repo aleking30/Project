@@ -142,6 +142,18 @@
       </nav>
       <div class="container">
         <h1></h1>
+        {% if registro_exitoso %}
+        <div id="registro-exitoso" class="alert alert-success" role="alert">
+          ¡Registro exitoso! Tu cuenta ha sido creada.
+        </div>
+        {% endif %}
+        {% if login_exitoso %}
+        <div id="Sesion-exitoso" class="alert alert-success">
+            {% for message in messages %}
+            <p id="text_parrafo" class="{% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="options">
           <div class="secciones">
             <div class="features_image-wrapper">
@@ -469,6 +481,30 @@
           popup.classList.remove("popup-closed"); // Elimina la clase de cierre
         }, 300); // Ajusta el tiempo para que coincida con la duración de la animación
       }
+
+      // Función para cerrar el mensaje de registro exitoso después de un tiempo
+      function cerrarMensajeDeRegistroExitoso() {
+        var mensaje = document.getElementById('registro-exitoso');
+        if (mensaje) {
+          setTimeout(function() {
+            mensaje.style.display = 'none'; // Oculta el mensaje
+          }, 1000); // Cambia 5000 por el tiempo en milisegundos que deseas que se muestre el mensaje (en este caso, 5 segundos)
+        }
+      }
+
+      // Llama a la función para cerrar el mensaje
+      cerrarMensajeDeRegistroExitoso();
+
+      function MensajeDeInicioDeSesion(){
+        var mensaje = document.getElementById('Sesion-exitoso')
+        if (mensaje) {
+          setTimeout(function() {
+            mensaje.style.display = 'none'; // Oculta el mensaje
+          }, 1000); // Cambia 5000 por el tiempo en milisegundos que deseas que se muestre el mensaje (en este caso, 5 segundos)
+        }
+      }
+
+      MensajeDeInicioDeSesion();
 
       // Obtén una referencia al botón "Temas" por su clase o ID, dependiendo de cómo esté definido en tu HTML
       var botonTemas = document.querySelector('.nav-link.dropdown-toggle');

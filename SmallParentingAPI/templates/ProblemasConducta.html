@@ -1,39 +1,296 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Problemas de conducta</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_PDC.css' %}">
-
-</head>
-<body>
-    <div class="container">
-        <h1>Problemas de Conducta</h1>
-        <div class="row">
-            <div class="item" onclick="seleccionarItem('bullying')">Bullying</div>
-            <div class="item" onclick="seleccionarItem('desafio')">Desafío de Autoridad</div>
+    <head>
+        <title>Problemas de conducta</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'CSS/chat_PDC.css' %}">
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <a
+                        class="navbar_logo-wrapper w-inline-block"
+                        href="{% url 'inicio' %}"
+                    >
+                        <img
+                        src="{% static 'imagenes' %}"
+                        loading="eager"
+                        width="50"
+                        height="50"
+                        class="navbar_logo"
+                        />
+                    </a>
+                    <a class="navbar-brand" href="{% url 'inicio' %}">SMALLPARENTING</a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse"
+                        aria-controls="navbarCollapse"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a
+                                class="nav-link dropdown-toggle"
+                                data-bs-toggle="dropdown"
+                                href="#"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="true"
+                                >Temas</a
+                                >
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" id="link-dificultades"
+                                        >Dificultades de aprendizaje</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-presion"
+                                        >Presión académica</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-salud"
+                                        >Salud mental estudiantil</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-comunicacion"
+                                        >Falta de comunicación</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-conducta"
+                                        >Problemas de conducta</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-gestion"
+                                        >Gestión del tiempo</a
+                                    >
+                                    <a class="dropdown-item" href="#" id="link-conversacion"
+                                        >Conversación personalizada</a
+                                    >
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-md-auto">
+                            {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'agregar_hijo' %}"
+                                >Agregar Hijo</a
+                                >
+                            </li>
+                            {% endif %} {% if not request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/registro/">Registrarse</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="mostrarPopup()"
+                                >Iniciar sesión</a
+                                >
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a
+                                class="nav-link"
+                                data-bs-toggle="offcanvas"
+                                href="#PerfilHijo"
+                                role="button"
+                                aria-controls="PerfilesHijos"
+                                >Perfiles</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'historial_respuestas' %}"
+                                >Historial</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link" href="#"
+                                >{{ request.user.username }}</span
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <form action="{% url 'cerrar_sesion' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary">
+                                    Cerrar Sesión
+                                </button>
+                                </form>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="contenedor-formulario">
+                <h1>Problemas de Conducta</h1>
+                <div class="formulario-container">
+                    <div class="row">
+                        <div class="item" onclick="seleccionarItem('bullying')">Bullying</div>
+                        <div class="item" onclick="seleccionarItem('desafio')">Desafío de Autoridad</div>
+                    </div>
+                    <div class="row">
+                        <div class="item" onclick="seleccionarItem('conducta')">Conducta Disruptiva</div>
+                        <div class="item" onclick="seleccionarItem('social')">Problemas de Conducta Social</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="offcanvas offcanvas-start"
+                tabindex="-1"
+                id="PerfilHijo"
+                aria-labelledby="PerfilesHijos"
+            >
+                <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="PerfilesHijos">Perfiles de Hijos</h5>
+                <button
+                    type="button"
+                    class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                ></button>
+                </div>
+                <div class="offcanvas-body">
+                <ul class="list-group">
+                    {% for hijo in hijos %}
+                    <li class="list-group-item">{{ hijo.nombre }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="Espacio-Horizontal-offcanvas"></div>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="agregar_hijo('{% url 'agregar_hijo' %}')"
+                >
+                    Agregar Hijo
+                </button>
+                <div class="Espacio-Horizontal-offcanvas"></div>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+                >
+                    Modificar Hijo
+                </button>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="item" onclick="seleccionarItem('conducta')">Conducta Disruptiva</div>
-            <div class="item" onclick="seleccionarItem('social')">Problemas de Conducta Social</div>
-        </div>
-    </div>
-    <script>
-        function seleccionarItem(item) {
-            console.log("Seleccionaste el item: " + item);
-            // Redirigir a la página correspondiente
-            if (item === 'bullying') {
-                window.location.href = "{% url 'Bullying' %}";
-            } else if (item === 'desafio') {
-                window.location.href = "{% url 'D_Autoridad' %}";
-            } else if (item === 'conducta') {
-                window.location.href = "{% url 'C_Disruptiva' %}";
-            } else if (item === 'social') {
-                window.location.href = "{% url 'P_D_C_SOCIAL' %}";
+        <script>
+            function ModificarHijo(url){
+                window.location.href = url;
             }
-        }
-    </script>
-</body>
+            function agregar_hijo(url){
+                window.location.href = url;
+            }
+
+            // Obtén una referencia al botón "Temas" por su clase o ID, dependiendo de cómo esté definido en tu HTML
+            var botonTemas = document.querySelector('.nav-link.dropdown-toggle');
+
+            // Obtén una referencia al menú desplegable por su clase o ID, nuevamente, según cómo esté definido en tu HTML
+            var menuDesplegable = document.querySelector('.dropdown-menu');
+
+            // Agrega un evento click al botón "Temas"
+            botonTemas.addEventListener('click', function (event) {
+                // Evita que el evento de clic se propague hacia arriba y cierre el menú inmediatamente
+                event.stopPropagation();
+
+                // Verifica si el menú está actualmente visible
+                var estaVisible = menuDesplegable.style.display === 'block';
+
+                // Si el menú está visible, ocúltalo; de lo contrario, muéstralo
+                if (estaVisible) {
+                    menuDesplegable.style.display = 'none';
+                } else {
+                    menuDesplegable.style.display = 'block';
+                }
+            });
+
+            // Agrega un evento click al menú desplegable
+            menuDesplegable.addEventListener('click', function (event) {
+                // Verifica si el elemento clicado es un enlace en el menú desplegable
+                if (event.target.tagName === 'A') {
+                    // Cierra el menú desplegable
+                    menuDesplegable.style.display = 'none';
+                    // Verifica si el usuario ha iniciado sesión
+                    {% if request.user.is_authenticated %}
+                        // Obtiene el texto del enlace clicado
+                        var linkText = event.target.textContent;
+
+                        // Realiza una redirección basada en el texto del enlace
+                        switch (linkText) {
+                            case 'Dificultades de aprendizaje':
+                                window.location.href = "{% url 'dificultadesAprendizaje' %}";
+                                break;
+                            case 'Presión académica':
+                                window.location.href = "{% url 'PresionAcademica' %}";
+                                break;
+                            case 'Salud mental estudiantil':
+                                window.location.href = "{% url 'SaludMentalEstudiantil' %}";
+                                break;
+                            case 'Falta de comunicación':
+                                window.location.href = "{% url 'FaltaComunicacion' %}";
+                                break;
+                            case 'Problemas de conducta':
+                                window.location.href = "{% url 'ProblemasConducta' %}";
+                                break;
+                            case 'Gestión del tiempo':
+                                window.location.href = "{% url 'GestiondelTiempo' %}";
+                                break;
+                            case 'Conversación personalizada':
+                                window.location.href = "{% url 'ConversacionPersonalizada' %}";
+                                break;
+                            default:
+                                // Puedes manejar otros enlaces aquí o redireccionar a una página predeterminada
+                                break;
+                        }
+                    {% else %}
+                        // Si el usuario no ha iniciado sesión, muestra la ventana emergente
+                        mostrarPopup();
+                    {% endif %}
+                }
+            });
+
+            // Agrega un evento click al documento para cerrar el menú cuando se hace clic en cualquier parte de la ventana
+            document.addEventListener('click', function (event) {
+                // Verifica si el menú está actualmente visible y si el clic ocurrió fuera del menú
+                if (menuDesplegable.style.display === 'block' && !menuDesplegable.contains(event.target)) {
+                    menuDesplegable.style.display = 'none';
+                }
+            });
+
+            // Espera a que el documento esté completamente cargado
+            document.addEventListener('DOMContentLoaded', function () {
+                // Encuentra el enlace de "Perfiles"
+                var perfilesLink = document.querySelector('a[href="#offcanvasPerfiles"]');
+
+                // Encuentra el offcanvas por su ID
+                var offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasPerfiles'));
+
+                // Agrega un evento de clic al enlace de "Perfiles" para abrir el offcanvas
+                perfilesLink.addEventListener('click', function (event) {
+                    event.preventDefault(); // Evita que el enlace funcione como una URL
+                    offcanvas.toggle(); // Abre o cierra el offcanvas según su estado actual
+                });
+            });
+            function seleccionarItem(item) {
+                console.log("Seleccionaste el item: " + item);
+                // Redirigir a la página correspondiente
+                if (item === 'bullying') {
+                    window.location.href = "{% url 'Bullying' %}";
+                } else if (item === 'desafio') {
+                    window.location.href = "{% url 'D_Autoridad' %}";
+                } else if (item === 'conducta') {
+                    window.location.href = "{% url 'C_Disruptiva' %}";
+                } else if (item === 'social') {
+                    window.location.href = "{% url 'P_D_C_SOCIAL' %}";
+                }
+            }
+        </script>
+    </body>
 </html>
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from SmallParentingAPI.views import inicio, registro, iniciar_sesion, ModificarHijo, chat_DIFICULTADES_DE_APRENDIZAJE, chat_PRESION_ACADEMICA, cerrar_sesion, P_D_C_SOCIAL, C_Disruptiva, D_Autoridad, Bullying, agregar_hijo
+from SmallParentingAPI.views import inicio, registro, ModificarHijo, chat_DIFICULTADES_DE_APRENDIZAJE, chat_PRESION_ACADEMICA, cerrar_sesion, P_D_C_SOCIAL, C_Disruptiva, D_Autoridad, Bullying, agregar_hijo
 from SmallParentingAPI.views import chat_SALUD_MENTAL_ESTUDIANTIL, chat_FALTA_DE_COMUNICACION, chat_PROBLEMAS_DE_CONDUCTA, chat_GESTION_DEL_TIEMPO, chat_CONVERSACION_PERSONALIZADA, historial_respuestas, ver_historial_perfil
 from django.conf.urls.static import static
 from django.conf import settings
@@ -10,7 +10,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('registro/', registro, name='registro'),
     path('inicio/', inicio, name='inicio'),
-    path('login/', iniciar_sesion, name='login'),
     path('login/', inicio, name='login'),
     path('ModificarHijo/', ModificarHijo, name='ModificarHijo'),
     path('cerrar-sesion/', cerrar_sesion, name='cerrar_sesion'),
