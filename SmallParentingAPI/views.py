@@ -10,7 +10,7 @@ from .models import PerfilUsuario, Hijo
 from .forms import RegistroForm
 import openai, json
 
-llave = "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"
+llave = ""
 openai.api_key = llave
     
 def ask_openai(conversa):
