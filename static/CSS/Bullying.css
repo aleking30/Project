@@ -1,134 +1,130 @@
 body {
-  background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background-color: #DCFFE9;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-button{
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%; /* El botón ocupa todo el ancho del contenedor */
-  border-radius: 5px; /* Bordes redondeados para el botón */
+.contenedor {
+  width: 100%;
 }
-.container {
-  max-width: 600px;
-  margin: 20px auto;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+.Espacio-Horizontal-offcanvas{
+  height:20px;
+  background-color: transparent;
 }
 
 h1 {
+  font-size: 2.5rem;
   text-align: center;
-  margin-top: 0;
-  color: #333333; /* Color azul para el título */
+  margin-bottom: 30px;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  color: #333333; /* Color del texto de las etiquetas */
-}
-
-textarea {
-  width: 100%;
-  height: 100px;
-  resize: vertical;
-  border: 1px solid #ccc; /* Agrega un borde a las áreas de texto */
-  padding: 5px; /* Agrega un espacio interno para los campos de texto */
-}
-
-/* Estilos para el botón de enviar */
-.submit-btn {
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%; /* El botón ocupa todo el ancho del contenedor */
-  border-radius: 5px; /* Bordes redondeados para el botón */
-}
-
-.submit-btn:hover {
-  background-color: #45a049;
-}
-
-/* Estilos para el enlace "Volver a la pantalla de inicio" */
-a {
-  display: block;
-  text-align: center;
+.espacio{
   margin-top: 20px;
-  color: #45a049; /* Color azul para el enlace */
-  text-decoration: none;
 }
-a:hover{
-  text-decoration: underline;
+.form-select{
+  max-width: 100%;
 }
 
-/* Estilos para el formulario en pantallas más pequeñas */
+.form-control{
+  max-width: 100%;
+}
+
+.contenedor-formulario{
+  margin-top: 20px;
+  width: 100%;
+}
+
+.formulario-container{
+  margin-top: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  padding: 20px;
+}
+
+.seccion-botones{
+  display: flex;
+  margin-top: 20px;
+}
+
+#volverinicio, #Btn-envio{
+  width: 25%;
+}
+#Btn-envio{
+  margin-left: 50%;
+}
+
+
+/* Estilos para dispositivos móviles (hasta 768px) */
 @media screen and (max-width: 768px) {
-  .container {
-      max-width: 100%; /* Establece el ancho máximo al 100% en pantallas más pequeñas */
-      margin: 10px; /* Agrega un pequeño margen para separar el formulario del borde de la pantalla */
+  .contenedor-formulario{
+      margin-top: 20px;
+      width: 100%;
   }
 
-  textarea {
-      height: 80px; /* Reduzca la altura del área de texto en pantallas más pequeñas */
+  .formulario-container{
+      width: 100%;
+      margin-left: 0;
+  }
+
+  .form-select{
+      max-width: 100%;
+  }
+  
+  .form-control{
+      max-width: 100%;
+  }
+
+  /* Ajustar los estilos para los botones "Volver a la pantalla de inicio" y "Enviar" */
+  #volverinicio,
+  #Btn-envio {
+      width: 40%; /* Establece el ancho al 100% en pantallas más pequeñas */; /* Reinicia el margen izquierdo para que ocupe toda la pantalla en dispositivos móviles */
+      margin-top: 10px; /* Ajusta el margen superior para separar los botones en dispositivos móviles */
+  }
+
+  #Btn-envio{
+      margin-left: 20%;
+  }
+  .seccion-botones{
+      display: flex;
   }
 }
 
-/* Estilos para el formulario en pantallas aún más pequeñas */
-@media screen and (max-width: 480px) {
-  h1 {
-      font-size: 24px; /* Tamaño de fuente más pequeño para el título en pantallas más pequeñas */
-  }
-
-  .submit-btn {
-      font-size: 14px; /* Tamaño de fuente más pequeño para el botón en pantallas más pequeñas */
-  }
-}
-
-  #loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
-    display: none; /* Ocultar por defecto */
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Capa superior para que esté por encima de todo */
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: none; /* Ocultar por defecto */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Capa superior para que esté por encima de todo */
 }
 
 #loading-indicator {
-    border: 4px solid #f3f3f3; /* Crea un borde para el círculo */
-    border-top: 4px solid #4caf50; /* Establece el color del borde superior para la animación */
-    border-radius: 50%; /* Hace que el círculo tenga bordes redondeados para que sea un círculo */
-    width: 50px; /* Establece el tamaño del círculo */
-    height: 50px; /* Establece el tamaño del círculo */
-    animation: spin 2s linear infinite; /* Agrega una animación para girar el círculo */
+  border: 4px solid #f3f3f3; /* Crea un borde para el círculo */
+  border-top: 4px solid #4caf50; /* Establece el color del borde superior para la animación */
+  border-radius: 50%; /* Hace que el círculo tenga bordes redondeados para que sea un círculo */
+  width: 50px; /* Establece el tamaño del círculo */
+  height: 50px; /* Establece el tamaño del círculo */
+  animation: spin 2s linear infinite; /* Agrega una animación para girar el círculo */
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 #loading-message {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 10px; /* Añade un margen superior para separar el círculo del mensaje */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 10px; /* Añade un margen superior para separar el círculo del mensaje */
 }

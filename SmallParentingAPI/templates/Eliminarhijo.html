@@ -2,12 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historial de Respuestas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'CSS/H.respuestas.css' %}">
+    <meta charset="utf-8" />
+    <title>Página de Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'CSS/eliminarHIJO.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
@@ -128,17 +133,31 @@
             </div>
         </nav>
         <div class="container">
-            <div class="contenedor-formulario">
-                <h1>Seleccione un perfil de hijo para ver su historial:</h1>
-                <ul>
-                    {% for hijo in hijos %}
-                        <!-- ver_historial.html -->
-                        <li><a href="{% url 'ver_historial_perfil' hijo.id %}">{{ hijo.nombre }}</a></li>
-
-                    {% endfor %}
-                </ul>
-                <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">VOLVER A INICIO</a>
+            <h1>Eliminar Hijo</h1>
+            {% if hijos %}
+            <form method="post" action="{% url 'EliminarHijo' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="hijo_id">Selecciona el hijo a eliminar:</label>
+                    <select class="form-select" name="hijo_id" required>
+                        <option value="" disabled selected>Selecciona un hijo</option>
+                        {% for hijo in hijos %}
+                            <option value="{{ hijo.id }}">{{ hijo.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="seccion-botones">
+                    <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">Volver a Inicio</a>
+                    <button id="Btn-envio"class="btn btn-danger" type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar a tu hijo/a?')">Eliminar</button>
+                </div>
+            </form>
+            {% else %}
+            <div class="alert alert-dismissible alert-warning">
+                <h4 class="alert-heading">ATENCION!</h4>
+                <p class="mb-0">Usted no tiene ningun perfil de hijo/a creado, presione aqui si quiere agregar un hijo <a id="atention" onclick="agregar_hijo('{% url 'agregar_hijo' %}')">Agregar Hij@</a>.</p>
             </div>
+            <a id="volverinicio_2" class="btn btn-secondary" href="{% url 'inicio' %}">Volver a Inicio</a>
+            {% endif %}
         </div>
         <div
             class="offcanvas offcanvas-start"
@@ -280,3 +299,4 @@
     </script>
 </body>
 </html>
+

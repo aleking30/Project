@@ -34,6 +34,9 @@ h1 {
     max-width: 100%;
 }
 
+.container{
+    width: 100%;
+}
 .contenedor-formulario{
     margin-top: 20px;
     width: 100%;
@@ -52,8 +55,9 @@ h1 {
     margin-top: 20px;
 }
 
-#volverinicio, #Btn-envio{
-    width: 25%;
+#volverinicio{
+    width: 20%;
+    margin-left: 40%;
 }
 #Btn-envio{
     margin-left: 50%;
@@ -81,10 +85,10 @@ h1 {
     }
 
     /* Ajustar los estilos para los botones "Volver a la pantalla de inicio" y "Enviar" */
-    #volverinicio,
-    #Btn-envio {
+    #volverinicio{
         width: 40%; /* Establece el ancho al 100% en pantallas más pequeñas */; /* Reinicia el margen izquierdo para que ocupe toda la pantalla en dispositivos móviles */
-        margin-top: 10px; /* Ajusta el margen superior para separar los botones en dispositivos móviles */
+        margin-top: 10px;
+        margin-left: 30%; /* Ajusta el margen superior para separar los botones en dispositivos móviles */
     }
 
     #Btn-envio{

@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historial de Respuestas</title>
+    <title>Historial de {{ perfil_hijo.nombre }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'CSS/H.respuestas.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/ver_historial_perfilhijo.css' %}">
     <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -95,16 +95,6 @@
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a
-                            class="nav-link"
-                            data-bs-toggle="offcanvas"
-                            href="#PerfilHijo"
-                            role="button"
-                            aria-controls="PerfilesHijos"
-                            >Perfiles</a
-                            >
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'historial_respuestas' %}"
                             >Historial</a
                             >
@@ -128,15 +118,10 @@
             </div>
         </nav>
         <div class="container">
-            <div class="contenedor-formulario">
-                <h1>Seleccione un perfil de hijo para ver su historial:</h1>
-                <ul>
-                    {% for hijo in hijos %}
-                        <!-- ver_historial.html -->
-                        <li><a href="{% url 'ver_historial_perfil' hijo.id %}">{{ hijo.nombre }}</a></li>
-
-                    {% endfor %}
-                </ul>
+            <h1>Historial de {{ perfil_hijo.nombre }}:</h1>
+            <pre>{{ historial }}</pre>
+            <div class="seccion-botones">
+                <a id="btn-atras" class="btn btn-outline-secondary" href="{% url 'historial_respuestas' %}">VOLVER ATRAS</a>
                 <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">VOLVER A INICIO</a>
             </div>
         </div>

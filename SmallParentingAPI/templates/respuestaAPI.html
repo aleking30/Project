@@ -1,20 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>API Response</title>
+    <title>RESPUESTA FINAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'CSS/boostrap.min.css' %}" />
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            padding: 20px;
             margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .contenedor {
+            width: 100%;
+        }
+
+        .container {
+            margin-top: 30px;
+            max-width: 80%;
         }
 
         h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
             text-align: center;
+            margin-bottom: 30px;
         }
 
         pre {
@@ -29,53 +48,55 @@
             overflow-x: auto;
         }
 
-        a {
-            display: block;
-            text-align: center;
+        .seccion-botones{
+            display: flex;
             margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
         }
 
-        a:hover {
-            background-color: #45a049;
+        #volverinicio{
+            width: 30%;
         }
-
-        button{
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-        }
-
-        button:hover{
-            background-color: #45a049;
+        #download-pdf{
+            width: 30%;
+            margin-left: 40%;
         }
 
         /* Estilos para dispositivos móviles (hasta 768px) */
         @media screen and (max-width: 768px) {
-            h1 {
-                font-size: 20px;
+            .container {
+                margin-top: 30px;
+                max-width: 100%;
+            }
+
+            .Seccion-botones{
+                display: flex;
+                margin-top: 20px;
+            }
+
+            #volverinicio{
+                width: 45%;
+            }
+
+            #download-pdf{
+                width: 45%;
+                margin-left: 10%;
+                margin-bottom: 30px;
             }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <h1>API Response</h1>
-    <pre>{{ response }}</pre>
-    <a href="{% url 'inicio' %}">Volver a la pantalla de inicio</a>
-    <button id="download-pdf">Descargar PDF</button>
-
+    <div class="contenedor">
+        <div class="container">
+            <h1>SOLUCION</h1>
+            <pre>{{ response }}</pre>
+            <div class="seccion-botones">
+                <a id="volverinicio" class="btn btn-secondary" href="{% url 'inicio' %}">VOLVER A INICIO</a>
+                <button class="btn btn-primary" id="download-pdf" >DESCARGAR PDF</button>
+            </div>
+        </div>
+    </div>
     <script>
         // Agregar el evento click al botón para generar y descargar el PDF
         document.getElementById('download-pdf').addEventListener('click', function() {

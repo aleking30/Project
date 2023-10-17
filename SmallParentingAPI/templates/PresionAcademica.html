@@ -150,10 +150,10 @@
                         <p>¿Cuál de las siguientes áreas crees que está generando más presión académica en tu hijo?</p>
                         <select class="form-select" id="p1" name="p1" onchange="habilitarCampoTexto(this)">
                             <option id="p1" name="p1" value="">Seleccionar</option>
-                            <option id="p1" name="p1" value="Exceso de tareas y deberes">Exceso de tareas y deberes</option>
                             <option id="p1" name="p1" value="Altas expectativas académicas">Altas expectativas académicas</option>
-                            <option id="p1" name="p1" value="Presión social y comparación con otros estudiantes">Presión social y comparación con otros estudiantes</option>
+                            <option id="p1" name="p1" value="Exceso de tareas y deberes">Exceso de tareas y deberes</option>
                             <option id="p1" name="p1" value="Falta de apoyo emocional y recursos educativos">Falta de apoyo emocional y recursos educativos</option>
+                            <option id="p1" name="p1" value="Presión social y comparación con otros estudiantes">Presión social y comparación con otros estudiantes</option>
                             <option id="p1" name="p1" value="Otro">Otro</option>
                         </select>
                         <input class="form-control" type="text" id="p1-text" name="p1" disabled>
@@ -260,15 +260,15 @@
                 <button
                     type="button"
                     class="btn btn-primary"
-                    onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+                    onclick="EliminarHijo('{% url 'EliminarHijo' %}')"
                 >
-                    Modificar Hijo
+                    Eliminar Hijo
                 </button>
                 </div>
             </div>
         </div>
         <script>
-            function ModificarHijo(url){
+            function EliminarHijo(url){
                 window.location.href = url;
             }
 

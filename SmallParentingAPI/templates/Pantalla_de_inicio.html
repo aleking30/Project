@@ -388,9 +388,9 @@
           <button
             type="button"
             class="btn btn-primary"
-            onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+            onclick="EliminarHijo('{% url 'EliminarHijo' %}')"
           >
-            Modificar Hijo
+            Eliminar Hijo
           </button>
         </div>
       </div>
@@ -452,7 +452,7 @@
       </div>
     </div>
     <script>
-      function ModificarHijo(url){
+      function EliminarHijo(url){
         window.location.href = url;
       }
       function agregar_hijo(url){

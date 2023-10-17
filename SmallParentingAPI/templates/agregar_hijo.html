@@ -47,6 +47,7 @@
                 <div class="form-group">
                     <label for="genero" class="form-label mt-4">GENERO:</label>
                     <select class="form-select" id="genero" name="genero_sexo" required>
+                        <option value="">Seleccionar</option>
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Prefiero no decirlo">Prefiero no decirlo</option>
@@ -55,17 +56,69 @@
 
                 <div class="form-group">
                     <label for="Grado_Academico" class="form-label mt-4">GRADO ACADEMICO:</label>
-                    <input type="text" id="Grado_Academico" name="Grado_Academico" class="form-control" placeholder="Grado academico" required>
+                    <select class="form-select" id="Grado_Academico" name="Grado_Academico" onchange="habilitarCampoTexto(this)" required>
+                        <option value="">Seleccionar</option>
+                        <option value="PRE-KINDER">PRE-KINDER</option>
+                        <option value="KINDER">KINDER</option>
+                        <option value="PRIMER AÑO BASICO">1° BASICO</option>
+                        <option value="SEGUNDO AÑO BASICO">2° BASICO</option>
+                        <option value="TERCER AÑO BASICO">3° BASICO</option>
+                        <option value="CUARTO AÑO BASICO">4° BASICO</option>
+                        <option value="QUINTO AÑO BASICO">5° BASICO</option>
+                        <option value="SEXTO AÑO BASICO">6° BASICO</option>
+                        <option value="SEPTIMO AÑO BASICO">7° BASICO</option>
+                        <option value="OCTAVO AÑO BASICO">8° BASICO</option>
+                        <option value="PRIMER AÑO ENSEÑANZA MEDIA">1° ENSEÑANZA MEDIA</option>
+                        <option value="SEGUNDO AÑO ENSEÑANZA MEDIA">2° ENSEÑANZA MEDIA</option>
+                        <option value="TERCER AÑO ENSEÑANZA MEDIA">3° ENSEÑANZA MEDIA</option>
+                        <option value="CUARTO AÑO ENSEÑANZA MEDIA">4° ENSEÑANZA MEDIA</option>
+                        <option value="PRIMER AÑO INSTITUTO">PRIMER AÑO INSTITUTO</option>
+                        <option value="SEGUNDO AÑO INSTITUTO">SEGUNDO AÑO INSTITUTO</option>
+                        <option value="PRIMER AÑO UNIVERSIDAD">PRIMER AÑO UNIVERSIDAD</option>
+                        <option value="SEGUNDO AÑO UNIVERSIDAD">SEGUNDO AÑO UNIVERSIDAD</option>
+                        <option value="TERCER AÑO UNIVERSIDAD">TERCER AÑO UNIVERSIDAD</option>
+                        <option value="CUARTO AÑO UNIVERSIDAD">CUARTO AÑO UNIVERSIDAD</option>
+                        <option value="QUINTO AÑO UNIVERSIDAD">QUINTO AÑO UNIVERSIDAD</option>
+                        <option value="SEXTO AÑO UNIVERSIDAD">SEXTO AÑO UNIVERSIDAD</option>
+                        <option value="SEPTIMO AÑO UNIVERSIDAD">SEPTIMO AÑO UNIVERSIDAD</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <input type="text" id="Grado_Academico-text" class="form-control" name="otro_grado_academico" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="Favorita" class="form-label mt-4">MATERIA FAVORITA:</label>
                     <select class="form-select" id="Favorita" name="materia_favorita" onchange="habilitarCampoTexto(this)" required>
                         <option value="">Seleccionar</option>
-                        <option value="Lectura y comprensión">Lectura y comprensión</option>
-                        <option value="Matemáticas">Matemáticas</option>
-                        <option value="Ciencias">Ciencias</option>
+                        <option value="Arte, Musica, Teatro (Educacion Artistica)">Arte, Música, Teatro (Educación Artística)</option>
+                        <option value="Biologia">Biología</option>
+                        <option value="Ciencias Naturales">Ciencias Naturales</option>
+                        <option value="Ciencias Sociales">Ciencias Sociales</option>
+                        <option value="Economia">Economía</option>
+                        <option value="Educacion Ambiental">Educación Ambiental</option>
+                        <option value="Educacion Etica y Ciudadana">Educación Ética y Ciudadana</option>
+                        <option value="Educacion Fisica">Educación Física</option>
+                        <option value="Educacion para la Ciudadania">Educación para la Ciudadanía</option>
+                        <option value="Educacion para la Paz">Educación para la Paz</option>
+                        <option value="Educacion para la Salud">Educación para la Salud</option>
+                        <option value="Educacion Religiosa">Educación Religiosa</option>
+                        <option value="Educacion Sexual">Educación Sexual</option>
+                        <option value="Filosofia">Filosofía</option>
+                        <option value="Fisica">Física</option>
+                        <option value="Formacion Civica y Etica">Formación Cívica y Ética</option>
+                        <option value="Geografia">Geografía</option>
                         <option value="Historia">Historia</option>
+                        <option value="Ingles u otros idiomas extranjeros">Inglés u otros idiomas extranjeros</option>
+                        <option value="Informatica o Tecnologias de la Informacion">Informática o Tecnologías de la Información</option>
+                        <option value="Lengua y Literatura">Lengua y Literatura</option>
+                        <option value="Matematicas">Matemáticas</option>
+                        <option value="Musica">Música</option>
+                        <option value="Orientacion Vocacional">Orientación Vocacional</option>
+                        <option value="Psicologia">Psicología</option>
+                        <option value="Quimica">Química</option>
+                        <option value="Religion o Etica">Religión o Ética</option>
+                        <option value="Sociologia">Sociología</option>
+                        <option value="Tecnologia">Tecnología</option>
                         <option value="Otro">Otro</option>
                     </select>
                     <input type="text" id="Favorita-text" class="form-control" name="otra_materia_favorita" disabled>

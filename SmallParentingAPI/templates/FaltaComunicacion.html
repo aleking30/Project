@@ -236,17 +236,17 @@
         </button>
         <div class="Espacio-Horizontal-offcanvas"></div>
         <button
-            type="button"
-            class="btn btn-primary"
-            onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+          type="button"
+          class="btn btn-primary"
+          onclick="EliminarHijo('{% url 'EliminarHijo' %}')"
         >
-            Modificar Hijo
+          Eliminar Hijo
         </button>
         </div>
       </div>
     </div>
     <script>
-      function ModificarHijo(url){
+      function EliminarHijo(url){
         window.location.href = url;
       }
       function agregar_hijo(url){

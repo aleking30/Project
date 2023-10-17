@@ -12,7 +12,7 @@ import openai, json
 
 llave = ""
 openai.api_key = llave
-    
+
 def ask_openai(conversa):
     print(conversa) #supervision de contexto de la aplicacion
     response = openai.ChatCompletion.create(
@@ -92,8 +92,23 @@ def inicio(request):
 
     return render(request, 'Pantalla_de_inicio.html', {'hijos': hijos, 'registro_exitoso': registro_exitoso, 'login_exitoso':login_exitoso})
 
-def ModificarHijo(request):
-    return render(request, 'ModificarHijo.html')
+def EliminarHijo(request):
+    if request.method == 'POST':
+        # Obtén el ID del hijo a eliminar desde la solicitud POST
+        hijo_id = request.POST.get('hijo_id')
+        
+        try:
+            hijo = Hijo.objects.get(id=hijo_id)
+            hijo.delete()  # Elimina el hijo
+            return redirect('inicio')
+        except Hijo.DoesNotExist:
+            # Manejar el caso en el que el hijo no existe
+            # Puedes mostrar un mensaje de error o realizar una redirección diferente.
+            pass
+
+    # Renderiza la vista con la lista de hijos para seleccionar uno para eliminar
+    hijos = Hijo.objects.all()
+    return render(request, 'Eliminarhijo.html', {'hijos': hijos})
 
 def cerrar_sesion(request):
     logout(request)
@@ -462,59 +477,6 @@ def D_Autoridad(request):
         # Redirigir a otra vista después de enviar el formulario
         return render(request, 'respuestaAPI.html', {'response': response, 'hijos': hijos, 'perfil_hijo_seleccionado': perfil_hijo_seleccionado})
     return render(request, 'D_Autoridad.html', {'hijos': hijos})
-
-def P_D_C_SOCIAL(request):
-    # Obtener el perfil del usuario actual
-    perfil_usuario = PerfilUsuario.objects.get(user=request.user)
-
-    # Obtener la lista de hijos asociados al usuario actual
-    hijos = Hijo.objects.filter(perfilusuario=perfil_usuario)
-
-    if request.method == 'POST':
-        perfil_hijo_seleccionado = request.POST.get('perfil_hijo', '')
-        conversa = []
-
-        # Agregar los datos del perfil del hijo seleccionado al mensaje
-        if perfil_hijo_seleccionado:
-            perfil_hijo = Hijo.objects.get(id=perfil_hijo_seleccionado)
-            mensaje_perfil_hijo = f"Perfil del hijo seleccionado:  " \
-                                  f"Nombre: {perfil_hijo.nombre}, " \
-                                  f"Fecha de nacimiento: {perfil_hijo.fecha_de_nacimiento}, " \
-                                  f"Género: {perfil_hijo.genero}, " \
-                                  f"Grado académico: {perfil_hijo.grado_academico}, " \
-                                  f"Enfermedad diagnosticada: {perfil_hijo.enfermedad_diagnosticada}, " \
-                                  f"Materia favorita: {perfil_hijo.materia_favorita}, "
-            conversa.append({"role": "system", "content": mensaje_perfil_hijo})
-
-        # Obtener los valores de los campos del formulario
-        pregunta1 = request.POST.get('p1', '')
-        pregunta2 = request.POST.get('p2', '')
-        pregunta3 = request.POST.get('p3', '')
-        pregunta4 = request.POST.get('p4', '')
-        pregunta5 = request.POST.get('p5', '')
-        
-        #Crear el mensaje con los valores obtenidos
-        conversa.append({"role": "system", "content": "Eres un experto en los problemas de conducta estudiantiles principalmente en los problemas de conducta social estudiantil, por lo tanto en base a las respuesta que recibas del usuario, brindaras una solucion completa a su problema. "})
-        mensaje = f"Hola soy {request.user}, " \
-                  f": Situaciones especificas en que tu hijo o hijo muestra problemas de conducta social: {pregunta1}," \
-                  f": Cuales son los comportamientos que la persona demuestra: {pregunta2}," \
-                  f": Patron o situacion especifica: {pregunta3}, " \
-                  f": Haz buscado alguna estrategia especifica: {pregunta4}, " \
-                  f": Espectativas o metas que tienes al buscar una solucion: {pregunta5}" 
-        conversa.append({"role": "user", "content": mensaje})
-        # Enviar el mensaje a chatbot y obtener la respuesta
-        response = ask_openai(conversa)
-        print(response)
-
-        # Guardar la respuesta en el perfil del hijo seleccionado
-        if perfil_hijo_seleccionado:
-            hijo_seleccionado = Hijo.objects.get(id=perfil_hijo_seleccionado)
-            hijo_seleccionado.respuesta_api = response
-            hijo_seleccionado.save()
-
-        # Redirigir a otra vista después de enviar el formulario
-        return render(request, 'respuestaAPI.html', {'response': response, 'hijos': hijos, 'perfil_hijo_seleccionado': perfil_hijo_seleccionado})
-    return render(request, 'P_D_C_SOCIAL.html', {'hijos': hijos})
 
 @login_required(login_url='/inicio/')
 def chat_GESTION_DEL_TIEMPO(request):

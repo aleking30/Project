@@ -128,7 +128,7 @@
                 </div>
             </nav>
             <div class="contenedor-formulario">
-                <h1>Conversacion personalizada</h1>
+                <h1>CONVERSACION PERSONALIZADA</h1>
                 <div class="formulario_chat">
                     <form method="POST" action="{% url 'ConversacionPersonalizada' %}">
                         {% csrf_token %}
@@ -195,15 +195,15 @@
                 <button
                     type="button"
                     class="btn btn-primary"
-                    onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+                    onclick="EliminarHijo('{% url 'EliminarHijo' %}')"
                 >
-                    Modificar Hijo
+                    Eliminar Hijo
                 </button>
                 </div>
             </div>
         </div>
         <script>
-            function ModificarHijo(url){
+            function EliminarHijo(url){
                 window.location.href = url;
             }
             function agregar_hijo(url){

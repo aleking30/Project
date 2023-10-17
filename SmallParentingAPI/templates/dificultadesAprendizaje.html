@@ -135,7 +135,7 @@
                 </div>
             </nav>
             <div class="contenedor-formulario">
-                <h1>Dificultades de Aprendizaje</h1>
+                <h1>DIFICULTADES DE APRENDIZAJE</h1>
                 <!-- Botón para volver a la pantalla de inicio -->
                 <form class="formulario-container" id="formulario" method="POST" action="">
                     <h4>Seleccionar perfil del hijo:</h4>
@@ -231,9 +231,16 @@
                         <h4>Pregunta 4</h4>
                         <p>¿Qué tipo de apoyo educativo consideras que sería más beneficioso para tu hijo en este momento?</p>
                         <div class="alternativas">
-                            <input type="checkbox" id="alt1" value="Clases particulares" class="form-check-input"> <label class="form-check-label" for="alt1">Clases particulares</label><br>
-                            <input type="checkbox" id="alt2" value="Tutorías académicas" class="form-check-input"> <label class="form-check-label" for="alt2">Tutorías académicas</label><br>
-                            <input type="checkbox" id="alt3" value="Material didáctico adicional" class="form-check-input"> <label class="form-check-label" for="alt3">Material didáctico adicional</label><br>
+                            <input type="checkbox" id="alt1" value="Aplicaciones educativas" class="form-check-input"> <label class="form-check-label" for="alt3">Aplicaciones educativas</label><br>
+                            <input type="checkbox" id="alt2" value="Clases en línea" class="form-check-input"> <label class="form-check-label" for="alt3">Clases en línea</label><br>
+                            <input type="checkbox" id="alt3" value="Clases particulares" class="form-check-input"> <label class="form-check-label" for="alt1">Clases particulares</label><br>
+                            <input type="checkbox" id="alt4" value="Clubes y actividades extracurriculares" class="form-check-input"> <label class="form-check-label" for="alt3">Clubes y actividades extracurriculares</label><br>
+                            <input type="checkbox" id="alt5" value="Grupos de estudio" class="form-check-input"> <label class="form-check-label" for="alt3">Grupos de estudio</label><br>
+                            <input type="checkbox" id="alt6" value="Material didáctico adicional" class="form-check-input"> <label class="form-check-label" for="alt3">Material didáctico adicional</label><br>
+                            <input type="checkbox" id="alt7" value="Mentores" class="form-check-input"> <label class="form-check-label" for="alt3">Mentores</label><br>
+                            <input type="checkbox" id="alt8" value="Programas de enriquecimiento academico" class="form-check-input"> <label class="form-check-label" for="alt3">Programas de enriquecimiento academico</label><br>
+                            <input type="checkbox" id="alt9" value="Recursos en línea gratuitos" class="form-check-input"> <label class="form-check-label" for="alt3">Recursos en línea gratuitos</label><br>
+                            <input type="checkbox" id="alt10" value="Tutorías académicas" class="form-check-input"> <label class="form-check-label" for="alt2">Tutorías académicas</label><br>
                         </div>
                         <textarea class="form-control" id="p4-textarea" name="p4" rows="3" cols="50"></textarea>
                     </div>        
@@ -244,10 +251,15 @@
                         <p>¿Cuál de las siguientes estrategias de apoyo has utilizado con tu hijo?</p>
                         <select class="form-select" id="p5" name="p5" onchange="habilitarCampoTexto(this)">
                             <option id="p5" name="p5" value="">Seleccionar</option>
+                            <option id="p5" name="p5" value="Adaptaciones en el entorno de estudio">Adaptaciones en el entorno de estudio</option>
+                            <option id="p5" name="p5" value="Establecer metas claras">Establecer metas claras</option>
+                            <option id="p5" name="p5" value="Establecer una rutina de estudio">Establecer una rutina de estudio</option>
+                            <option id="p5" name="p5" value="Participación activa en la educación">Participación activa en la educación</option>
+                            <option id="p5" name="p5" value="Planificación y organización">Planificación y organización</option>
+                            <option id="p5" name="p5" value="Programas de intervención educativa especializados">Programas de intervención educativa especializados</option>
+                            <option id="p5" name="p5" value="Promover la lectura y el aprendizaje activo">Promover la lectura y el aprendizaje activo</option>
                             <option id="p5" name="p5" value="Reforzamiento positivo y recompensas">Reforzamiento positivo y recompensas</option>
                             <option id="p5" name="p5" value="Tutorías o clases particulares">Tutorías o clases particulares</option>
-                            <option id="p5" name="p5" value="Adaptaciones en el entorno de estudio">Adaptaciones en el entorno de estudio</option>
-                            <option id="p5" name="p5" value="Programas de intervención educativa especializados">Programas de intervención educativa especializados</option>
                             <option id="p5" name="p5" value="Otro">Otro</option>
                         </select>
                         <input class="form-control" type="text" id="p5-text" name="p5" disabled>
@@ -300,15 +312,15 @@
                 <button
                     type="button"
                     class="btn btn-primary"
-                    onclick="ModificarHijo('{% url 'ModificarHijo' %}')"
+                    onclick="EliminarHijo('{% url 'EliminarHijo' %}')"
                 >
-                    Modificar Hijo
+                    Eliminar Hijo
                 </button>
                 </div>
             </div>
         </div>
         <script>
-            function ModificarHijo(url){
+            function EliminarHijo(url){
                 window.location.href = url;
             }
             function agregar_hijo(url){
