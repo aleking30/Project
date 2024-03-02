@@ -149,11 +149,27 @@
                             <div class="chat-items">
                                 <div id="chat-history">
                                     {% for message in session %}
-                                        <p>{{ message.role }}: {{ message.content }}</p>
+                                        {% if message.role == 'user' %}
+                                            {% if nombre_hijo_seleccionado %}
+                                                <p>{{ nombre_hijo_seleccionado }}: {{ message.content }}</p>
+                                            {% else %}
+                                                <p>User: {{ message.content }}</p>
+                                            {% endif %}
+                                        {% elif message.role == 'assistant' %}
+                                            <p id="response-message" style="display: block;">SmallParenting: {{ message.content }}</p>
+                                        {% else %}
+                                            <p>{{ message.role }}: {{ message.content }}</p>
+                                        {% endif %}
                                     {% endfor %}
+                                </div>                                                             
+                                <div>
+                                    <input class="form-control" type="text" name="message" placeholder="Escribe tu mensaje...">
+                                    <button id="btn-enviar" class="btn btn-primary" type="submit">Enviar</button>
                                 </div>
-                                <input class="form-control" type="text" name="message" placeholder="Escribe tu mensaje...">
-                                <button id="btn-enviar" class="btn btn-primary" type="submit">Enviar</button>
+                                <div id="loading-message" style="display: none;">
+                                    <div id="loading-indicator"></div>
+                                    <div id="loading-mensaje">Enviando datos, espere un momento...</div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -287,18 +303,24 @@
 
             // Espera a que el documento esté completamente cargado
             document.addEventListener('DOMContentLoaded', function () {
-                // Encuentra el enlace de "Perfiles"
-                var perfilesLink = document.querySelector('a[href="#offcanvasPerfiles"]');
-
-                // Encuentra el offcanvas por su ID
-                var offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasPerfiles'));
-
-                // Agrega un evento de clic al enlace de "Perfiles" para abrir el offcanvas
-                perfilesLink.addEventListener('click', function (event) {
-                    event.preventDefault(); // Evita que el enlace funcione como una URL
-                    offcanvas.toggle(); // Abre o cierra el offcanvas según su estado actual
+                const loadingMessage = document.getElementById('loading-message');
+                const responseMessage = document.getElementById('response-message');
+                const submitButton = document.getElementById('btn-enviar');
+        
+                submitButton.addEventListener('click', function () {
+                    loadingMessage.style.display = 'block';  // Mostrar el gif de carga al hacer clic
+                    responseMessage.style.display = 'none';
+        
+                    // Simula un retraso para dar la sensación de procesamiento
+                    setTimeout(function () {
+                        // Aquí simularías el envío del formulario o realizarías la lógica necesaria
+                        // Una vez que se complete el procesamiento, oculta el gif de carga y muestra la respuesta
+                        loadingMessage.style.display = 'none';
+                        responseMessage.style.display = 'block';
+                    }, 2000);  // Este valor representa un retraso simulado de 2 segundos (puedes ajustarlo según tus necesidades)
                 });
             });
+
             // Almacena el ID del hijo seleccionado en localStorage
             document.getElementById("perfil_hijo").addEventListener("change", function () {
                 const selectedHijoId = this.value;

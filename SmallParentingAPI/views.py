@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.http import Http404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.csrf import csrf_exempt
@@ -10,7 +11,7 @@ from .models import PerfilUsuario, Hijo
 from .forms import RegistroForm
 import openai, json
 
-llave = ""
+llave = "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"
 openai.api_key = llave
 
 def ask_openai(conversa):
@@ -92,22 +93,29 @@ def inicio(request):
 
     return render(request, 'Pantalla_de_inicio.html', {'hijos': hijos, 'registro_exitoso': registro_exitoso, 'login_exitoso':login_exitoso})
 
+@login_required
 def EliminarHijo(request):
+    perfil_usuario = PerfilUsuario.objects.get(user=request.user)
+    
     if request.method == 'POST':
         # Obtén el ID del hijo a eliminar desde la solicitud POST
         hijo_id = request.POST.get('hijo_id')
         
         try:
             hijo = Hijo.objects.get(id=hijo_id)
-            hijo.delete()  # Elimina el hijo
-            return redirect('inicio')
+            
+            # Verifica si el hijo pertenece al perfil del usuario actual
+            if hijo in perfil_usuario.hijos.all():
+                hijo.delete()  # Elimina el hijo
+                return redirect('inicio')
+            else:
+                raise Http404("No tienes permisos para eliminar este hijo.")
         except Hijo.DoesNotExist:
             # Manejar el caso en el que el hijo no existe
-            # Puedes mostrar un mensaje de error o realizar una redirección diferente.
-            pass
-
+            raise Http404("El hijo que intentas eliminar no existe.")
+    
     # Renderiza la vista con la lista de hijos para seleccionar uno para eliminar
-    hijos = Hijo.objects.all()
+    hijos = perfil_usuario.hijos.all()  # Solo los hijos del usuario actual
     return render(request, 'Eliminarhijo.html', {'hijos': hijos})
 
 def cerrar_sesion(request):
@@ -545,6 +553,7 @@ def chat_CONVERSACION_PERSONALIZADA(request):
     hijos = Hijo.objects.filter(perfilusuario=perfil_usuario)
     perfil_hijo_seleccionado = None
     conversa = []  # Inicializa la variable conversa aquí
+    nombre_hijo_seleccionado = None  # Inicializa la variable nombre_hijo_seleccionado aquí
 
     if request.method == 'POST':
         perfil_hijo_id = request.POST.get('perfil_hijo', '')
@@ -552,6 +561,7 @@ def chat_CONVERSACION_PERSONALIZADA(request):
         if perfil_hijo_id:
             perfil_hijo_seleccionado = Hijo.objects.get(id=perfil_hijo_id)
             conversa = json.loads(perfil_hijo_seleccionado.conversacion_personalizada)
+            nombre_hijo_seleccionado = perfil_hijo_seleccionado.nombre
         else:
             conversa = []
 
@@ -567,8 +577,8 @@ def chat_CONVERSACION_PERSONALIZADA(request):
         if perfil_hijo_seleccionado:
             perfil_hijo_seleccionado.conversacion_personalizada = json.dumps(conversa)
             perfil_hijo_seleccionado.save()
-        
-    return render(request, 'ConversacionPersonalizada.html', {'hijos': hijos, 'perfil_hijo_seleccionado': perfil_hijo_seleccionado, 'session': conversa})
+
+    return render(request, 'ConversacionPersonalizada.html', {'hijos': hijos, 'perfil_hijo_seleccionado': perfil_hijo_seleccionado, 'nombre_hijo_seleccionado': nombre_hijo_seleccionado, 'session': conversa})
 
 @login_required(login_url='/inicio/')
 def chat_FALTA_DE_COMUNICACION(request):

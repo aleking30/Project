@@ -127,3 +127,40 @@ h1 {
         margin-right: 10%;
     }
 }
+
+#loading-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    display: none; /* Ocultar por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Capa superior para que esté por encima de todo */
+}
+
+#loading-indicator {
+    margin-top: 300px;
+    margin-left: 40%;
+    border: 4px solid #f3f3f3; /* Crea un borde para el círculo */
+    border-top: 4px solid #4caf50; /* Establece el color del borde superior para la animación */
+    border-radius: 50%; /* Hace que el círculo tenga bordes redondeados para que sea un círculo */
+    width: 50px; /* Establece el tamaño del círculo */
+    height: 50px; /* Establece el tamaño del círculo */
+    animation: spin 2s linear infinite; /* Agrega una animación para girar el círculo */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading-mensaje {
+    width: 20%;
+    margin-left: 40%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
