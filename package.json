@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start-django": "python manage.py runserver"
+  },
   "dependencies": {
     "inputmask": "^5.0.8"
   }
