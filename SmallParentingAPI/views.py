@@ -15,12 +15,13 @@ llave = ""
 openai.api_key = llave
 
 def ask_openai(conversa):
-    print(conversa) #supervision de contexto de la aplicacion
+    print(conversa)
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo", messages=conversa,
+        model="gpt-3.5-turbo", 
+        messages=conversa,
         temperature = 0.9
     )
-    answer = response.choices[0].message.content.strip()
+    answer = response['choices'][0]['message']['content'].strip()
     return answer
 
 def registro(request):
